@@ -5,7 +5,6 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'dart:io';
 import 'dart:async';
 
-
 class RegisterFormPage extends StatefulWidget {
   RegisterFormPage({Key? key}) : super(key: key);
 
@@ -14,6 +13,9 @@ class RegisterFormPage extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterFormPage> {
+
+  bool _isHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -21,12 +23,11 @@ class _RegisterFormState extends State<RegisterFormPage> {
       child: Builder(builder: (context) {
         final formBloc = BlocProvider.of<UserFormBloc>(context);
 
-                  return Theme(
+        return Theme(
           data: Theme.of(context).copyWith(
             inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red.shade800)
-              ),
+                  borderSide: BorderSide(color: Colors.red.shade800)),
             ),
           ),
           child: Builder(
@@ -69,6 +70,9 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               labelText: 'Contraseña',
                               prefixIcon: Icon(Icons.password),
                             ),
+                            obscureText: _isHidden,
+                            obscureTextTrueIcon: Icon(Icons.visibility),
+                            obscureTextFalseIcon: Icon(Icons.visibility_off),
                           ),
                           TextFieldBlocBuilder(
                             textFieldBloc: formBloc.verifiedPassword,
@@ -76,6 +80,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               labelText: 'Repite Contraseña',
                               prefixIcon: Icon(Icons.lock_reset),
                             ),
+                            obscureText: _isHidden,
                           ),
                           TextFieldBlocBuilder(
                             textFieldBloc: formBloc.fullName,
@@ -86,7 +91,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                           ),
                           SizedBox(
                             height: 10,
-                          ),                        
+                          ),
                           ElevatedButton(
                             onPressed: formBloc.submit,
                             child: const Text('Registrarse'),
@@ -104,6 +109,9 @@ class _RegisterFormState extends State<RegisterFormPage> {
     );
   }
 }
+
+  
+
 
 class LoadingDialog extends StatelessWidget {
   static void show(BuildContext context, {Key? key}) => showDialog<void>(
@@ -147,9 +155,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
   void initState() {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
     });
     super.initState();
   }
@@ -180,4 +186,3 @@ class _SuccessScreenState extends State<SuccessScreen> {
     );
   }
 }
-

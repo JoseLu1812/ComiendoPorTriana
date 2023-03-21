@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
           onBackground: Colors.white, 
           surface: Colors.grey, 
           onSurface: Colors.grey.shade800),
+        fontFamily: 'KeepCalm'
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {

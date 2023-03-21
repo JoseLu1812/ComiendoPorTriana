@@ -12,7 +12,9 @@ class BaresPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Title(color: Colors.black, child: Text('BARES'));
     return BlocProvider(
+      
       create: (context) => BarBloc()..add(BarFetched()),
       child: const BaresBody(),
     );
@@ -41,16 +43,16 @@ class _BaresBodyState extends State<BaresBody> {
       switch (state.status) {
         case BarStatus.failure:
           return Center(
-            child: Column(
-              children: [
-                Text('Error de carga', style: TextStyle(fontSize: 20)),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<BarBloc>().add(BarFetched());
-                  },
-                  child: Text('Reintentar'),
-                ),
-              ],
+              child: Column(
+            children: [
+              Text('Error de carga', style: TextStyle(fontSize: 20)),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<BarBloc>().add(BarFetched());
+                },
+                child: Text('Reintentar'),
+              ),
+            ],
           ));
         case BarStatus.success:
           if (state.bar.isEmpty) {
@@ -120,7 +122,8 @@ class BarItem extends StatelessWidget {
 
     return Material(
       child: Container(
-        height: 200,
+        height: 280,
+        color: Colors.amber.shade600,
         child: Card(
           semanticContainer: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -128,17 +131,79 @@ class BarItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Image.network(
-                  imgBase + bar.image!,
-                  fit: BoxFit.fill,
+                  child: Image.network(
+                    imgBase + bar.image!,
+                    fit: BoxFit.cover,
+                  ),
+                  flex: 5
+              ),
+              /*Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Text(
+                        bar.name!,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(60.0, 0, 0, 0),
+                      child: Text(
+                        bar.direction!,
+                        style: TextStyle(fontSize: 9, fontFamily: 'Couture', color: Colors.redAccent.shade700),
+                        textAlign: TextAlign.end,
+                      ),
+                    )
+                  ],
                 ),
-                flex: 5
+              ),*/
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+                child: Text(
+                  bar.name!,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
-                child: Text(bar.name!,
-                style: TextStyle(fontWeight: FontWeight.w800),),
+                padding: EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
+                child: Text(
+                  bar.direction!,
+                  style: TextStyle(fontSize: 9, fontFamily: 'Couture', color: Colors.redAccent.shade700),
+                  textAlign: TextAlign.end,
+                ),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
+                child: Text(bar.description! ,
+                  style: TextStyle(fontSize: 10, fontFamily: 'Couture', fontWeight: FontWeight.normal),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                        child: Text('Ver Más'),
+                        onPressed: () {},
+                      style: ButtonStyle(alignment: Alignment.center),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                        child: TextButton(
+                          child: Text('Reservar'), 
+                          onPressed: () {}
+                        ),
+                      ),
+                  ],
+                ) 
+              ),              
             ],
           ),
           shape: RoundedRectangleBorder(
@@ -146,7 +211,7 @@ class BarItem extends StatelessWidget {
           ),
           elevation: 5,
           margin: EdgeInsets.all(10),
-         ),
+        ),
       ),
     );
   }

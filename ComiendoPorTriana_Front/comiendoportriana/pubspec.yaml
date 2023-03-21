@@ -80,6 +80,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+  
+  fonts:
+    - family: Couture
+      fonts:
+        - asset: assets/fonts/couture-bld.otf
+        - asset: assets/fonts/couture-bldit.otf
+    
+    - family: KeepCalm
+      fonts:
+        - asset: assets/fonts/KeepCalm-Medium.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -42,13 +42,11 @@ class _HomePageState extends State<HomePage> {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset('assets/images/logo-title.png', 
-            color: Colors.red.shade800,
-        ),
         title: Image.asset('assets/images/logo-title.png',
             height: 170, 
             color: Colors.white,
         ),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
               onPressed: () => {authBloc.add(UserLoggedOut())},
