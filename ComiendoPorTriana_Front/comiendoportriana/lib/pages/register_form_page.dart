@@ -14,8 +14,6 @@ class RegisterFormPage extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterFormPage> {
 
-  bool _isHidden = true;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -70,7 +68,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               labelText: 'Contraseña',
                               prefixIcon: Icon(Icons.password),
                             ),
-                            obscureText: _isHidden,
+                            obscureText: true,
                             obscureTextTrueIcon: Icon(Icons.visibility),
                             obscureTextFalseIcon: Icon(Icons.visibility_off),
                           ),
@@ -80,7 +78,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               labelText: 'Repite Contraseña',
                               prefixIcon: Icon(Icons.lock_reset),
                             ),
-                            obscureText: _isHidden,
+                            obscureText: true,
                           ),
                           TextFieldBlocBuilder(
                             textFieldBloc: formBloc.fullName,
