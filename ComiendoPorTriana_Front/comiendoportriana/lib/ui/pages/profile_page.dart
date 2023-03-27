@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/blocs/authentication/authentication.dart';
 import 'package:comiendoportriana/blocs/login/login_bloc.dart';
 
-import '../models/login.dart';
+import '../../models/login.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});

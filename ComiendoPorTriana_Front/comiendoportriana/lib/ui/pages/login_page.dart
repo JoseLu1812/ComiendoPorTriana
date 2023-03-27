@@ -1,9 +1,9 @@
-import 'package:comiendoportriana/pages/register_form_page.dart';
+import 'package:comiendoportriana/ui/pages/register_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/config/locator.dart';
-import '../blocs/blocs.dart';
-import '../services/services.dart';
+import '../../blocs/blocs.dart';
+import '../../services/services.dart';
 
 class LoginPage extends StatelessWidget {
   @override

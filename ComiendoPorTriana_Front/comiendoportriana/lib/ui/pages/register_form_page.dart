@@ -1,5 +1,5 @@
 import 'package:comiendoportriana/blocs/user_form/user_form_bloc.dart';
-import 'package:comiendoportriana/pages/pages.dart';
+import 'package:comiendoportriana/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'dart:io';

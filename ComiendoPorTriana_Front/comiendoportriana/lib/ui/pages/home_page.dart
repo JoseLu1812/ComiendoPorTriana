@@ -1,12 +1,12 @@
-import 'package:comiendoportriana/pages/bares_page.dart';
-import 'package:comiendoportriana/pages/login_page.dart';
-import 'package:comiendoportriana/pages/profile_page.dart';
+import 'package:comiendoportriana/ui/pages/bares_page.dart';
+import 'package:comiendoportriana/ui/pages/login_page.dart';
+import 'package:comiendoportriana/ui/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/blocs/authentication/authentication.dart';
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/services/services.dart';
-import '../models/models.dart';
+import '../../models/models.dart';
 
 List<Widget> _widgetOptions = <Widget>[
   BlocBuilder<AuthenticationBloc, AuthenticationState>(
