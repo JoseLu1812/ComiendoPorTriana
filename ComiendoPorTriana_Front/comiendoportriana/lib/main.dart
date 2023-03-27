@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/services/services.dart';
-import 'package:comiendoportriana/pages/pages.dart';
+import 'package:comiendoportriana/ui/pages/pages.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
