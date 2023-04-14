@@ -169,7 +169,7 @@ class BarItem extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
                 child: Text(
-                  bar.direction!,
+                  bar.address!,
                   style: TextStyle(fontSize: 9, fontFamily: 'Couture', color: Colors.redAccent.shade700),
                   textAlign: TextAlign.end,
                 ),

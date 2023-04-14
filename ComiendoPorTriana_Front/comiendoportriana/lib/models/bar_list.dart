@@ -131,7 +131,7 @@ class BarContent {
   String? _name;
   String? _description;
   Owner? _owner;
-  String? _direction;
+  String? _address;
   String? _image;
   List<Null>? _comments;
   String? _createdAt;
@@ -141,7 +141,7 @@ class BarContent {
       String? name,
       String? description,
       Owner? owner,
-      String? direction,
+      String? address,
       String? image,
       List<Null>? comments,
       String? createdAt}) {
@@ -157,8 +157,8 @@ class BarContent {
     if (owner != null) {
       this._owner = owner;
     }
-    if (direction != null) {
-      this._direction = direction;
+    if (address != null) {
+      this._address = address;
     }
     if (image != null) {
       this._image = image;
@@ -179,8 +179,8 @@ class BarContent {
   set description(String? description) => _description = description;
   Owner? get owner => _owner;
   set owner(Owner? owner) => _owner = owner;
-  String? get direction => _direction;
-  set direction(String? direction) => _direction = direction;
+  String? get address => _address;
+  set address(String? address) => _address = address;
   String? get image => _image;
   set image(String? image) => _image = image;
   List<Null>? get comments => _comments;
@@ -193,7 +193,7 @@ class BarContent {
     _name = json['name'];
     _description = json['description'];
     _owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
-    _direction = json['direction'];
+    _address = json['address'];
     _image = json['image'];
     _createdAt = json['createdAt'];
   }
@@ -206,7 +206,7 @@ class BarContent {
     if (this._owner != null) {
       data['owner'] = this._owner!.toJson();
     }
-    data['direction'] = this._direction;
+    data['address'] = this._address;
     data['image'] = this._image;
 
     data['createdAt'] = this._createdAt;
