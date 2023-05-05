@@ -78,6 +78,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/bar/**").hasAnyRole("BARMAN")
                 .antMatchers(HttpMethod.PUT, "/bar/**").hasAnyRole("BARMAN")
                 .antMatchers(HttpMethod.DELETE, "/bar/**").hasAnyRole("BARMAN")
+                .antMatchers(HttpMethod.POST, "/comment").hasAnyRole("BARMAN")
                 .antMatchers("/auth/register/admin").hasRole("BARMAN")
                 .anyRequest().permitAll();
 

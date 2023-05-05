@@ -45,7 +45,7 @@ class BarBloc extends Bloc<BarEvent, BarState> {
             status: BarStatus.success,
             currentPage: 0,
             bar: bares.content,
-            hasReachedMax: bares.number! + 1 >= bares.totalPages!,
+            hasReachedMax: bares.number! + 1 >= bares.totalElements!,
           ),
         );
       }

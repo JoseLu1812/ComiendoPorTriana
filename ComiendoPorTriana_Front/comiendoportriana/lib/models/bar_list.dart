@@ -131,23 +131,17 @@ class BarContent {
   String? _name;
   String? _description;
   Owner? _owner;
-  String? _direction;
-  String? _image;
+  String? _address;
   List<Null>? _comments;
-  String? _createdAt;
+  String? _image;
 
   BarContent(
-      {String? id,
-      String? name,
+  {String? name,
       String? description,
       Owner? owner,
-      String? direction,
-      String? image,
+      String? address,
       List<Null>? comments,
-      String? createdAt}) {
-    if (id != null) {
-      this._id = id;
-    }
+      String? image}) {
     if (name != null) {
       this._name = name;
     }
@@ -157,17 +151,14 @@ class BarContent {
     if (owner != null) {
       this._owner = owner;
     }
-    if (direction != null) {
-      this._direction = direction;
-    }
-    if (image != null) {
-      this._image = image;
+    if (address != null) {
+      this._address = address;
     }
     if (comments != null) {
       this._comments = comments;
     }
-    if (createdAt != null) {
-      this._createdAt = createdAt;
+    if (image != null) {
+      this._image = image;
     }
   }
 
@@ -179,23 +170,20 @@ class BarContent {
   set description(String? description) => _description = description;
   Owner? get owner => _owner;
   set owner(Owner? owner) => _owner = owner;
-  String? get direction => _direction;
-  set direction(String? direction) => _direction = direction;
-  String? get image => _image;
-  set image(String? image) => _image = image;
+  String? get address => _address;
+  set address(String? address) => _address = address;
   List<Null>? get comments => _comments;
   set comments(List<Null>? comments) => _comments = comments;
-  String? get createdAt => _createdAt;
-  set createdAt(String? createdAt) => _createdAt = createdAt;
+  String? get image => _image;
+  set image(String? image) => _image = image;
 
   BarContent.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
     _description = json['description'];
     _owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
-    _direction = json['direction'];
+    _address = json['address'];
     _image = json['image'];
-    _createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -206,10 +194,8 @@ class BarContent {
     if (this._owner != null) {
       data['owner'] = this._owner!.toJson();
     }
-    data['direction'] = this._direction;
+    data['address'] = this._address;
     data['image'] = this._image;
-
-    data['createdAt'] = this._createdAt;
     return data;
   }
 }

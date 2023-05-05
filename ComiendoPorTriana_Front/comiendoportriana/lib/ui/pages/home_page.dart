@@ -7,6 +7,28 @@ import 'package:comiendoportriana/blocs/authentication/authentication.dart';
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/services/services.dart';
 import '../../models/models.dart';
+//import 'package:go_router/go_router.dart';
+
+
+/*final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return LoginPage();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'bares',
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaresPage();
+          },
+        ),
+      ],
+    ),
+  ],
+);*/
+
 
 List<Widget> _widgetOptions = <Widget>[
   BlocBuilder<AuthenticationBloc, AuthenticationState>(

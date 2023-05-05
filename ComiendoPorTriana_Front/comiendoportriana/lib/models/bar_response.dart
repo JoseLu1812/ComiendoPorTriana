@@ -6,19 +6,20 @@ class BarResponse {
   String? nombre;
   String? descripcion;
   User? owner;
-  String? direction;
+  String? address;
+  List<Null>? comments;
   String? image;
 
   BarResponse(
-      {this.id, this.nombre, this.descripcion, this.owner, this.direction, this.image});
+      {this.id, this.nombre, this.descripcion, this.owner, this.address, this.comments, this.image});
 
   BarResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nombre = json['nombre'];
     descripcion = json['descripcion'];
     owner = json['owner'];
-    direction = json['direction'];
-    image = json['direction'];
+    address = json['address'];
+    image = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +28,7 @@ class BarResponse {
     data['nombre'] = this.nombre;
     data['descripcion'] = this.descripcion;
     data['owner'] = this.owner;
-    data['direction'] = this.direction;
+    data['address'] = this.address;
     data['image'] = this.image;
     return data;
   }
