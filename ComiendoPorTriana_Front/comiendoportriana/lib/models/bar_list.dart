@@ -136,7 +136,8 @@ class BarContent {
   String? _image;
 
   BarContent(
-  {String? name,
+  {   String? id,  
+    String? name,
       String? description,
       Owner? owner,
       String? address,

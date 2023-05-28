@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/main.dart';
 import 'package:comiendoportriana/services/localstorage_service.dart';
 import 'package:get_it/get_it.dart';
@@ -170,7 +169,7 @@ class AuthorizationInterceptor implements InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     if (data.statusCode == 401 || data.statusCode == 403) {
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
       });
     }

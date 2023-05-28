@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,6 +16,9 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 public class CreateUserRequest {
+
+    @Email
+    private String email;
 
     @NotEmpty(message = "createUserRequest.username.notempty")
     private String username;

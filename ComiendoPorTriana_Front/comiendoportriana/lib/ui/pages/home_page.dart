@@ -4,9 +4,6 @@ import 'package:comiendoportriana/ui/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/blocs/authentication/authentication.dart';
-import 'package:comiendoportriana/config/locator.dart';
-import 'package:comiendoportriana/services/services.dart';
-import '../../models/models.dart';
 //import 'package:go_router/go_router.dart';
 
 
@@ -34,11 +31,11 @@ List<Widget> _widgetOptions = <Widget>[
   BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
     if (state is AuthenticationNotAuthenticated) {
-      return LoginPage();
+      return const LoginPage();
     } else if (state is AuthenticationAuthenticated) {
-      return BaresPage();
+      return const BaresPage();
     }
-    return Text("Loading");
+    return const Text("Loading");
   }),
   ProfilePage(),
 ];
@@ -72,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
               onPressed: () => {authBloc.add(UserLoggedOut())},
-              icon: Icon(Icons.logout))
+              icon: const Icon(Icons.logout))
         ],
       ),
       body: _widgetOptions.elementAt(_selectedIndex),

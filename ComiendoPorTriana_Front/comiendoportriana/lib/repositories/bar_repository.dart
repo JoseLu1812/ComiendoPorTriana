@@ -17,15 +17,15 @@ class BarRepository {
     _rest = GetIt.I.get<RestAuthenticatedClient>();
   }
 
-  Future<BarList> getListaBares(int page) async {
-    String url = "$urlBase?page=$page";
+  Future<BarList> getListaBares(int pag) async {
+    String url = '$urlBase?page=$pag';
     var response = await _rest.get(url);
     return BarList.fromJson(jsonDecode(response));
   }
 
 
   Future<BarResponse> getBarContent(String barId) async {
-    String url = urlBase + barId;
+    String url = "$urlBase/$barId";
     var response = await _rest.get(url);
     return BarResponse.fromJson(jsonDecode(response));
   }

@@ -19,7 +19,7 @@ class ProfileState extends Equatable {
 
   @override
   String toString() {
-    return '''PostState { status: $status, user: ${user} }''';
+    return '''PostState { status: $status, user: $user }''';
   }
 
   @override

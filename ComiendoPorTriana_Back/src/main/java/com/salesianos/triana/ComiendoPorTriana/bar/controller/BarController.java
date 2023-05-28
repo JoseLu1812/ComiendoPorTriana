@@ -5,6 +5,8 @@ import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.CreateBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.EditBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.service.BarService;
+import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentRequestDto;
+import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentResponseDto;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +38,6 @@ import java.util.UUID;
 public class BarController {
 
     private final BarService service;
-
 
     @Operation(
             summary = "Obtener un bar",
@@ -150,7 +152,7 @@ public class BarController {
     })
     @GetMapping("/bar")
     public Page<BarDto> search(@Parameter(name = "Search", description = "Filtros de busqueda para la petición")@RequestParam(value = "search", defaultValue = "") String search,
-                            @PageableDefault(size = 12, page = 0) Pageable pageable){
+                            @PageableDefault(size = 8, page = 0) Pageable pageable){
         return service.findAll(search, pageable);
     }
 
@@ -312,6 +314,25 @@ public class BarController {
     }
 
 
+    @PostMapping("/bar/{id}/comment")
+    public ResponseEntity<BarDto> createComment(@AuthenticationPrincipal User author, @PathVariable UUID id,
+                                                            @Valid @RequestBody CommentRequestDto requestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(BarDto.of(service.createComment(id, requestDto, author)));
+    }
+
+    @PutMapping("/bar/{id}/comment")
+    public BarDto editComment(@AuthenticationPrincipal User author, @PathVariable UUID id,
+                              @Valid @RequestBody CommentRequestDto requestDto) {
+        return BarDto.of(service.editComment(id, requestDto, author));
+    }
+
+
+    @DeleteMapping("/bar/{id}/comment")
+    public ResponseEntity<?> deleteComment(@AuthenticationPrincipal User author, @PathVariable UUID id) {
+        service.deleteComment(id, author);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

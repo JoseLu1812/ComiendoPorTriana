@@ -1,7 +1,7 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model;
 
 import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
-import com.salesianos.triana.ComiendoPorTriana.comment.model.Comment;
+import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -56,11 +56,11 @@ public class User implements UserDetails {
                     foreignKey = @ForeignKey(name="FK_FAVORITOS_USER")),
             name = "favoritos"
     )
-    private List<Bar> favList = new ArrayList<Bar>();
+    private List<Bar> favList = new ArrayList<>();
 
-//    @Builder.Default
-//    @OneToMany(mappedBy = "author")
-//    private List<Comment> comments = new ArrayList<Comment>();
+   /*@Builder.Default
+   @OneToMany(mappedBy = "author")
+    private List<Comment> comments = new ArrayList<>();*/
 
     @Builder.Default
     private boolean accountNonExpired = true;

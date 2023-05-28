@@ -6,6 +6,8 @@ import '../../blocs/blocs.dart';
 import '../../services/services.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,7 @@ class LoginPage extends StatelessWidget {
                     Text(msg),
                     TextButton(
                       //textColor: Theme.of(context).primaryColor,
-                      child: Text('Retry'),
+                      child: const Text('Retry'),
                       onPressed: () {
                         authBloc.add(AppLoaded());
                       },
@@ -37,7 +39,7 @@ class LoginPage extends StatelessWidget {
                 ));
               }
               // return splash screen
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
                 ),
@@ -78,11 +80,11 @@ class __SignInFormState extends State<_SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final _loginBloc = BlocProvider.of<LoginBloc>(context);
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
 
     _onLoginButtonPressed() {
       if (_key.currentState!.validate()) {
-        _loginBloc.add(LoginInWithUsernameButtonPressed(
+        loginBloc.add(LoginInWithUsernameButtonPressed(
             username: _usernameController.text,
             password: _passwordController.text));
       } else {
@@ -101,7 +103,7 @@ class __SignInFormState extends State<_SignInForm> {
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           if (state is LoginLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -120,7 +122,7 @@ class __SignInFormState extends State<_SignInForm> {
                     color: Colors.red.shade800,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Nombre de Usuario',
                         filled: true,
@@ -135,7 +137,7 @@ class __SignInFormState extends State<_SignInForm> {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                     width: 10,
                     child: TextField(
@@ -143,7 +145,7 @@ class __SignInFormState extends State<_SignInForm> {
                     ),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Contraseña',
                       filled: true,
@@ -163,23 +165,23 @@ class __SignInFormState extends State<_SignInForm> {
                     width: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     child: ElevatedButton(
-                      child: Text('Inicia Sesión'),
                       onPressed:
                           state is LoginLoading ? () {} : _onLoginButtonPressed,
+                      child: const Text('Inicia Sesión'),
                       ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white),
                                             onPressed: () {
                       Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => RegisterFormPage()));
+                            context, MaterialPageRoute(builder: (context) => const RegisterFormPage()));
                       },
-                      child: Text('Registrarse')),
+                      child: const Text('Registrarse')),
                   ),
                 ],
               ),

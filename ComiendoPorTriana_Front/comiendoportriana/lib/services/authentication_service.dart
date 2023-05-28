@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/services/localstorage_service.dart';
 import 'package:get_it/get_it.dart';

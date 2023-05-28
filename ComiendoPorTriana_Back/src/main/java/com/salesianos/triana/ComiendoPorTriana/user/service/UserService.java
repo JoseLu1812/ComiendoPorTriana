@@ -1,9 +1,6 @@
 package com.salesianos.triana.ComiendoPorTriana.user.service;
 
 
-import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
-import com.salesianos.triana.ComiendoPorTriana.comment.model.Comment;
-import com.salesianos.triana.ComiendoPorTriana.exception.NotOwnerException;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
 import com.salesianos.triana.ComiendoPorTriana.user.model.UserRole;
 import com.salesianos.triana.ComiendoPorTriana.user.model.dto.CreateUserRequest;

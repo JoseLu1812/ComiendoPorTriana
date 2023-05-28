@@ -2,11 +2,10 @@ import 'package:comiendoportriana/blocs/user_form/user_form_bloc.dart';
 import 'package:comiendoportriana/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'dart:io';
 import 'dart:async';
 
 class RegisterFormPage extends StatefulWidget {
-  RegisterFormPage({Key? key}) : super(key: key);
+  const RegisterFormPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterFormPage> createState() => _RegisterFormState();
@@ -41,7 +40,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                     LoadingDialog.hide(context);
 
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => SuccessScreen()));
+                        MaterialPageRoute(builder: (_) => const SuccessScreen()));
                   },
                   onFailure: (context, state) {
                     LoadingDialog.hide(context);
@@ -56,6 +55,13 @@ class _RegisterFormState extends State<RegisterFormPage> {
                       child: Column(
                         children: <Widget>[
                           TextFieldBlocBuilder(
+                            textFieldBloc: formBloc.email,
+                            decoration: const InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email),
+                            ),
+                          ),
+                          TextFieldBlocBuilder(
                             textFieldBloc: formBloc.username,
                             decoration: const InputDecoration(
                               labelText: 'Username',
@@ -69,8 +75,8 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               prefixIcon: Icon(Icons.password),
                             ),
                             obscureText: true,
-                            obscureTextTrueIcon: Icon(Icons.visibility),
-                            obscureTextFalseIcon: Icon(Icons.visibility_off),
+                            obscureTextTrueIcon: const Icon(Icons.visibility),
+                            obscureTextFalseIcon: const Icon(Icons.visibility_off),
                           ),
                           TextFieldBlocBuilder(
                             textFieldBloc: formBloc.verifiedPassword,
@@ -87,7 +93,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
                               prefixIcon: Icon(Icons.badge),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           ElevatedButton(
@@ -151,9 +157,9 @@ class SuccessScreen extends StatefulWidget {
 class _SuccessScreenState extends State<SuccessScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
     });
     super.initState();
   }
@@ -162,22 +168,22 @@ class _SuccessScreenState extends State<SuccessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimary,
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Icon(
+            Icon(
               Icons.check_circle_outline_rounded,
               size: 100,
               color: Colors.red,
             ),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 10),
+            Text(
               'Registrado Correctamente',
               style: TextStyle(fontSize: 24, color: Colors.red),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
           ],
         ),
       ),

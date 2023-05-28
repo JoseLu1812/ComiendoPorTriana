@@ -70,10 +70,10 @@ class MyApp extends StatelessWidget {
           GlobalContext.ctx = context;
           if (state is AuthenticationAuthenticated) {
             // show home page
-            return HomePage();
+            return const HomePage();
           }
           // otherwise show login page
-          return LoginPage();
+          return const LoginPage();
         },
       ),
     );

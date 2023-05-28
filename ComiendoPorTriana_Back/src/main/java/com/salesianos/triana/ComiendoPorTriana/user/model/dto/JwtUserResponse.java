@@ -1,11 +1,15 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +24,9 @@ public class JwtUserResponse extends UserResponse {
         id = userResponse.getId();
         username = userResponse.getUsername();
         fullName = userResponse.getFullName();
+        email = userResponse.getEmail();
+        List<Bar> favList = userResponse.getFavList();
+        //List<Comment> comments = userResponse.getComments();
         createdAt = userResponse.getCreatedAt();
     }
 

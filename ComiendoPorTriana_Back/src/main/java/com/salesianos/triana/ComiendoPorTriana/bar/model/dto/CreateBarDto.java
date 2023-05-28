@@ -30,8 +30,4 @@ public class CreateBarDto {
     private String image;
 
 
-
-
-
-
 }

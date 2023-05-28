@@ -1,8 +1,12 @@
+import 'package:comiendoportriana/models/bar_list.dart';
+
 class LoginResponse {
   String? id;
   String? username;
   String? fullName;
   String? email;
+  List<BarContent>? favList;
+  //List<Null>? comments;
   String? createdAt;
   String? token;
   String? refreshToken;
@@ -12,6 +16,8 @@ class LoginResponse {
       this.username,
       this.fullName,
       this.email,
+      this.favList,
+      //this.comments,
       this.createdAt,
       this.token,
       this.refreshToken});
@@ -21,6 +27,16 @@ class LoginResponse {
     username = json['username'];
     fullName = json['fullName'];
     email = json['email'];
+    if (json['favList'] != null) {
+      favList = <BarContent>[];
+      json['favList'].forEach((v) {
+        favList!.add(new BarContent.fromJson(v));
+      });
+    }
+    //if (json['comments'] != null) {
+    //  comments = <Null>[];
+    //  json['comments'].forEach((v) {});
+    //}
     createdAt = json['createdAt'];
     token = json['token'];
     refreshToken = json['refreshToken'];
@@ -32,6 +48,13 @@ class LoginResponse {
     data['username'] = username;
     data['fullName'] = fullName;
     data['email'] = email;
+    if (this.favList != null) {
+      data['favList'] = this.favList!.map((v) => v.toJson()).toList();
+    }
+    //if (this.comments != null) {
+    //  data['comments'] = this.comments!.map((v) => v.toJson()).toList();
+    //}
+    data['createdAt'] = this.createdAt;
     data['token'] = token;
     data['refreshToken'] = refreshToken;
     return data;

@@ -5,7 +5,12 @@ import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.CreateBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.EditBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.repo.BarRepository;
+import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
+import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentRequestDto;
+import com.salesianos.triana.ComiendoPorTriana.comment.pk.CommentPk;
+import com.salesianos.triana.ComiendoPorTriana.comment.repo.CommentRepository;
 import com.salesianos.triana.ComiendoPorTriana.exception.BarNotFoundException;
+import com.salesianos.triana.ComiendoPorTriana.exception.CommentNotFoundException;
 import com.salesianos.triana.ComiendoPorTriana.files.service.StorageService;
 import com.salesianos.triana.ComiendoPorTriana.search.spec.GenericSpecificationBuilder;
 import com.salesianos.triana.ComiendoPorTriana.search.util.SearchCriteria;
@@ -20,6 +25,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,8 @@ import java.util.UUID;
 public class BarService {
 
     private final BarRepository repo;
+
+    private final CommentRepository commentRepo;
 
 
     private final StorageService storageService;
@@ -98,6 +106,50 @@ public class BarService {
                         return "";
                     });
         }
+    }
+
+    public Bar createComment(UUID id, CommentRequestDto requestDto, User author) {
+        return repo.findById(id).map(b -> {
+           CommentPk pk = new CommentPk(author.getId(), b.getId());
+           Comment com = Comment.builder()
+                   .pk(pk)
+                   .author(author)
+                   .title(requestDto.getTitle())
+                   .body(requestDto.getBody())
+                   .build();
+           com.addBar(b);
+           commentRepo.save(com);
+           repo.save(b);
+           return b;
+        }).orElseThrow(() -> new EntityNotFoundException());
+    }
+
+    @Transactional
+    public Bar deleteComment(UUID id, User author) {
+        Optional<Comment> comOpt = commentRepo.findById(new CommentPk(author.getId(), id));
+        if(comOpt.isEmpty())
+            throw new EntityNotFoundException();
+        Comment c = comOpt.get();
+        return repo.findById(id).map(b -> {
+            b.getComments().remove(c);
+            commentRepo.deleteById(c.getPk());
+            return repo.save(b);
+        }).orElseThrow(() -> new EntityNotFoundException());
+    }
+
+    public Bar editComment(UUID id, CommentRequestDto requestDto, User author) {
+        Optional<Comment> comOpt = commentRepo.findById(new CommentPk(author.getId(), id));
+        if(comOpt.isEmpty())
+            throw new EntityNotFoundException();
+        Comment c = comOpt.get();
+        return repo.findById(id).map(b -> {
+            c.setTitle(requestDto.getTitle());
+            c.setBody(requestDto.getBody());
+            b.getComments().remove(c);
+            b.getComments().add(c);
+            commentRepo.save(c);
+            return repo.save(b);
+        }).orElseThrow(() -> new EntityNotFoundException());
     }
 
 

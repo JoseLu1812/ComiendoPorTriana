@@ -1,9 +1,9 @@
 import 'package:comiendoportriana/blocs/bar/bar.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/ui/pages/bar_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/widgets.dart';
 
 const String imgBase = "http://localhost:8080/download/";
 
@@ -12,9 +12,8 @@ class BaresPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Title(color: Colors.black, child: Text('BARES'));
+    Title(color: Colors.black, child: const Text('BARES'));
     return BlocProvider(
-      
       create: (context) => BarBloc()..add(BarFetched()),
       child: const BaresBody(),
     );
@@ -45,12 +44,12 @@ class _BaresBodyState extends State<BaresBody> {
           return Center(
               child: Column(
             children: [
-              Text('Error de carga', style: TextStyle(fontSize: 20)),
+              const Text('Error de carga', style: TextStyle(fontSize: 20)),
               ElevatedButton(
                 onPressed: () {
                   context.read<BarBloc>().add(BarFetched());
                 },
-                child: Text('Reintentar'),
+                child: const Text('Reintentar'),
               ),
             ],
           ));
@@ -62,7 +61,7 @@ class _BaresBodyState extends State<BaresBody> {
             itemBuilder: (BuildContext context, int index) {
               return index >= state.bar.length
                   ? const BottomLoader()
-                  : BarItem(bar: state.bar[index]);
+                  : _barItem(state.bar[index]);
             },
             itemCount:
                 state.hasReachedMax ? state.bar.length : state.bar.length + 1,
@@ -72,6 +71,91 @@ class _BaresBodyState extends State<BaresBody> {
           return const Center(child: CircularProgressIndicator());
       }
     });
+  }
+
+  _barItem(BarContent bar) {
+    return SizedBox(
+      height: 300,
+      child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+                flex: 5,
+                child: Image.network(
+                  imgBase + bar.image!,
+                  fit: BoxFit.cover,
+                )),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+              child: Text(
+                bar.name!,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
+              child: Text(
+                bar.address!,
+                style: TextStyle(
+                    fontSize: 9,
+                    fontFamily: 'Couture',
+                    color: Colors.redAccent.shade700),
+                textAlign: TextAlign.end,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
+              child: Text(
+                bar.description!,
+                style: const TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'Couture',
+                    fontWeight: FontWeight.normal),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BarDetailPage(barId: bar.id!)),
+                          ),
+                        },
+                        style: const ButtonStyle(alignment: Alignment.center),
+                        child: const Text('Ver Más'),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                        child: const Text('Reservar'),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                )),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -90,7 +174,7 @@ class _BaresBodyState extends State<BaresBody> {
     if (_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
+    return currentScroll >= (maxScroll * 1);
   }
 }
 
@@ -108,111 +192,5 @@ class BottomLoader extends StatelessWidget {
         child: CircularProgressIndicator(strokeWidth: 1.5),
       ),
     ));
-  }
-}
-
-class BarItem extends StatelessWidget {
-  const BarItem({super.key, required this.bar});
-
-  final BarContent bar;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Material(
-      child: Container(
-        height: 280,
-        color: Colors.amber.shade600,
-        child: Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                  child: Image.network(
-                    imgBase + bar.image!,
-                    fit: BoxFit.cover,
-                  ),
-                  flex: 5
-              ),
-              /*Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Text(
-                        bar.name!,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(60.0, 0, 0, 0),
-                      child: Text(
-                        bar.direction!,
-                        style: TextStyle(fontSize: 9, fontFamily: 'Couture', color: Colors.redAccent.shade700),
-                        textAlign: TextAlign.end,
-                      ),
-                    )
-                  ],
-                ),
-              ),*/
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
-                child: Text(
-                  bar.name!,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
-                child: Text(
-                  bar.address!,
-                  style: TextStyle(fontSize: 9, fontFamily: 'Couture', color: Colors.redAccent.shade700),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
-                child: Text(bar.description! ,
-                  style: TextStyle(fontSize: 10, fontFamily: 'Couture', fontWeight: FontWeight.normal),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        child: Text('Ver Más'),
-                        onPressed: () {},
-                      style: ButtonStyle(alignment: Alignment.center),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                        child: TextButton(
-                          child: Text('Reservar'), 
-                          onPressed: () {}
-                        ),
-                      ),
-                  ],
-                ) 
-              ),              
-            ],
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          elevation: 5,
-          margin: EdgeInsets.all(10),
-        ),
-      ),
-    );
   }
 }

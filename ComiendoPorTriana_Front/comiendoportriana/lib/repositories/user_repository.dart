@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:comiendoportriana/config/locator.dart';
-import 'package:comiendoportriana/models/login.dart';
 import 'package:comiendoportriana/models/user.dart';
 import 'package:comiendoportriana/models/user_register.dart';
 import 'package:injectable/injectable.dart';

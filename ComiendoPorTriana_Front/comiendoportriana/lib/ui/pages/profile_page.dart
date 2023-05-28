@@ -47,47 +47,83 @@ class _ProfileUIState extends State<ProfileUI> {
               ],
             ));
           case ProfileStatus.standard:
-            return SingleChildScrollView(
-                child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Center(
-                child: Column(children: [
-                  Text(
-                    state.user!.username!,
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 50),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text('Nombre Completo:', style: TextStyle( fontSize: 15),),
-                        Text(' ${state.user!.fullName}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                      ],
-                    )
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white),
-                        onPressed: () {
-                          context
-                              .read<AuthenticationBloc>()
-                              .add(UserLoggedOut());
-                        },
-                        child: Text(
-                          "Cerrar Sesión",
-                        )),
-                  ),
-                ]),
+
+        return SizedBox(
+      height: 500,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: Column(children: [
+            Text(
+              state.user!.username!,
+              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 50),
+            ),
+            Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text(
+                      'Nombre Completo:',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(' ${state.user!.fullName}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                  ],
+                )),
+            Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text(
+                      'Email:',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(' ${state.user!.email}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                  ],
+                )),
+            Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text(
+                      'Fecha de creación:',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text('${state.user!.createdAt}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                  ],
+                )
               ),
-            ));
-            
-            case ProfileStatus.initial:
-              return CircularProgressIndicator();
+            Container(
+              margin: const EdgeInsets.all(5),
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                  onPressed: () {
+                    context.read<AuthenticationBloc>().add(UserLoggedOut());
+                  },
+                  child: const Text(
+                    "Cerrar Sesión",
+                  )),
+            ),
+          ]),
+        ),
+      )
+    );            
+          case ProfileStatus.initial:
+            return CircularProgressIndicator();
         }
       },
     );

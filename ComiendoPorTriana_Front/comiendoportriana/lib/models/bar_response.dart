@@ -1,5 +1,4 @@
 import 'package:comiendoportriana/models/user.dart';
-import 'package:flutter/material.dart';
 
 class BarResponse {
   String? id;

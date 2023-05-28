@@ -4,7 +4,6 @@ import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
 import 'package:comiendoportriana/services/bar_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'dart:async';
 
@@ -49,7 +48,7 @@ class BarBloc extends Bloc<BarEvent, BarState> {
           ),
         );
       }
-      final bares = await _barService.getListaBares(state.currentPage + 1);
+      final bares = await _barService.getListaBares(state.currentPage +1);
       emit(
         state.copyWith(
           status: BarStatus.success,

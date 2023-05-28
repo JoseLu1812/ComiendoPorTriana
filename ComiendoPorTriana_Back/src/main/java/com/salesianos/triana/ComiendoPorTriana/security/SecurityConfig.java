@@ -71,15 +71,19 @@ public class SecurityConfig {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
+
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .authorizeRequests()
+                .antMatchers("/bar/comment/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/bar/**").hasAnyRole("BARMAN")
                 .antMatchers(HttpMethod.PUT, "/bar/**").hasAnyRole("BARMAN")
                 .antMatchers(HttpMethod.DELETE, "/bar/**").hasAnyRole("BARMAN")
-                .antMatchers(HttpMethod.POST, "/comment").hasAnyRole("BARMAN")
                 .antMatchers("/auth/register/admin").hasRole("BARMAN")
+                .antMatchers("/me/**").authenticated()
+                .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll();
 
 
