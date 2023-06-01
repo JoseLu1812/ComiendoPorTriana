@@ -1,4 +1,5 @@
 import 'package:comiendoportriana/ui/pages/bares_page.dart';
+import 'package:comiendoportriana/ui/pages/favourites_page.dart';
 import 'package:comiendoportriana/ui/pages/login_page.dart';
 import 'package:comiendoportriana/ui/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ List<Widget> _widgetOptions = <Widget>[
     }
     return const Text("Loading");
   }),
+  const FavouritesPage(),
   const ProfilePage(),
 ];
 

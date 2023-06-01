@@ -70,7 +70,7 @@ class _BaresBodyState extends State<BaresBody> {
                 : _barItem(state.bar[index]);
             },
             itemCount:
-              state.hasReachedMax ? state.bar.length : state.bar.length + 1,
+              state.hasReachedMax ? state.bar.length : state.currentPage + 1,
             controller: _scrollController,
           );
         case BarStatus.initial:

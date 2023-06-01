@@ -30,8 +30,8 @@ class _RegisterFormState extends State<RegisterFormPage> {
           child: Builder(
             builder: (context) {
               return Scaffold(
-                backgroundColor: Colors.red.shade700,
-                appBar: AppBar(title: const Text('User')),
+                backgroundColor: Colors.white,
+                appBar: AppBar(title: const Text('Registro')),
                 body: FormBlocListener<UserFormBloc, String, String>(
                   onSubmitting: (context, state) {
                     LoadingDialog.show(context);
