@@ -1,5 +1,7 @@
+
 import 'package:comiendoportriana/blocs/bar_details/bar_details_bloc.dart';
 import 'package:comiendoportriana/models/bar_response.dart';
+import 'package:comiendoportriana/models/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,8 +83,7 @@ _barBody(BarResponse bar) {
             padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
             child: Text(
               bar.nombre!,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 24),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           ),
           Padding(
@@ -111,10 +112,37 @@ _barBody(BarResponse bar) {
             child: Text(
               'Dueño: ${bar.owner!.fullName!}',
               style: const TextStyle(
-                fontSize: 12,
-                fontFamily: 'Couture',
-                fontWeight: FontWeight.normal
-              ), 
+                  fontSize: 12,
+                  fontFamily: 'Couture',
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: Card(
+              semanticContainer: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              elevation: 5,
+              margin: const EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+                    child: _commentsListBody(bar.comments!),
+                  ),
+                  FloatingActionButton(
+                    onPressed: () => {},
+                    child: const Icon(Icons.add),
+                    backgroundColor: Colors.red.shade800,
+                    foregroundColor: Colors.white,
+                    hoverColor: Colors.red.shade400,
+                    elevation: 10,
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -130,3 +158,19 @@ _barBody(BarResponse bar) {
   );
 }
 
+_commentsListBody(List<Comment> lista) {
+  return ListView.builder(
+      itemCount: lista.length,
+      itemBuilder: (context, index) {
+        final comment = lista[index];
+
+        return Card(
+          child: ListTile(
+            leading: Title(
+                color: Colors.red.shade800, child: Text(comment.username!)),
+            title: Text(comment.title!),
+            subtitle: Text(comment.body!),
+          ),
+        );
+      });
+}

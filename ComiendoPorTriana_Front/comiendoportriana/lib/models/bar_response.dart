@@ -1,3 +1,4 @@
+import 'package:comiendoportriana/models/comment.dart';
 import 'package:comiendoportriana/models/user.dart';
 
 class BarResponse {
@@ -6,7 +7,7 @@ class BarResponse {
   String? descripcion;
   User? owner;
   String? address;
-  List<Null>? comments;
+  List<Comment>? comments;
   String? image;
 
   BarResponse(

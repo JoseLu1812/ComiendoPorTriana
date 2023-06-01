@@ -1,3 +1,5 @@
+import 'package:comiendoportriana/models/models.dart';
+
 class BarList {
   List<BarContent>? _content;
   Pageable? _pageable;
@@ -132,7 +134,7 @@ class BarContent {
   String? _description;
   Owner? _owner;
   String? _address;
-  List<Null>? _comments;
+  List<Comment>? _comments;
   String? _image;
 
   BarContent(
@@ -141,7 +143,7 @@ class BarContent {
       String? description,
       Owner? owner,
       String? address,
-      List<Null>? comments,
+      List<Comment>? comments,
       String? image}) {
     if (name != null) {
       this._name = name;
@@ -173,8 +175,8 @@ class BarContent {
   set owner(Owner? owner) => _owner = owner;
   String? get address => _address;
   set address(String? address) => _address = address;
-  List<Null>? get comments => _comments;
-  set comments(List<Null>? comments) => _comments = comments;
+  List<Comment>? get comments => _comments;
+  set comments(List<Comment>? comments) => _comments = comments;
   String? get image => _image;
   set image(String? image) => _image = image;
 

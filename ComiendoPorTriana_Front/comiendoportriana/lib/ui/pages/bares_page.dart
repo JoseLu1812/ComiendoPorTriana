@@ -1,6 +1,9 @@
 import 'package:comiendoportriana/blocs/bar/bar.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/models/models.dart';
+import 'package:comiendoportriana/repositories/repositories.dart';
+import 'package:comiendoportriana/services/localstorage_service.dart';
 import 'package:comiendoportriana/ui/pages/bar_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +33,13 @@ class BaresBody extends StatefulWidget {
 class _BaresBodyState extends State<BaresBody> {
   final _scrollController = ScrollController();
 
+  bool _isFavorited = true;
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    _isFavorited;
   }
 
   @override
@@ -42,7 +48,7 @@ class _BaresBodyState extends State<BaresBody> {
       switch (state.status) {
         case BarStatus.failure:
           return Center(
-              child: Column(
+            child: Column(
             children: [
               const Text('Error de carga', style: TextStyle(fontSize: 20)),
               ElevatedButton(
@@ -60,11 +66,11 @@ class _BaresBodyState extends State<BaresBody> {
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               return index >= state.bar.length
-                  ? const BottomLoader()
-                  : _barItem(state.bar[index]);
+                ? const BottomLoader()
+                : _barItem(state.bar[index]);
             },
             itemCount:
-                state.hasReachedMax ? state.bar.length : state.bar.length + 1,
+              state.hasReachedMax ? state.bar.length : state.bar.length + 1,
             controller: _scrollController,
           );
         case BarStatus.initial:
@@ -88,27 +94,37 @@ class _BaresBodyState extends State<BaresBody> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-                flex: 5,
-                child: Image.network(
-                  imgBase + bar.image!,
-                  fit: BoxFit.cover,
-                )),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
-              child: Text(
-                bar.name!,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
+              flex: 5,
+              child: Image.network(
+                imgBase + bar.image!,
+                fit: BoxFit.cover,
+              )
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+                  child: Text(
+                    bar.name!,
+                    style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+                  child: FavoriteWidget(),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
               child: Text(
                 bar.address!,
                 style: TextStyle(
-                    fontSize: 9,
-                    fontFamily: 'Couture',
-                    color: Colors.redAccent.shade700),
+                  fontSize: 9,
+                  fontFamily: 'Couture',
+                  color: Colors.redAccent.shade700),
                 textAlign: TextAlign.end,
               ),
             ),
@@ -117,41 +133,42 @@ class _BaresBodyState extends State<BaresBody> {
               child: Text(
                 bar.description!,
                 style: const TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'Couture',
-                    fontWeight: FontWeight.normal),
+                  fontSize: 10.0,
+                  fontFamily: 'Couture',
+                  fontWeight: FontWeight.normal),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BarDetailPage(barId: bar.id!)),
-                          ),
-                        },
-                        style: const ButtonStyle(alignment: Alignment.center),
-                        child: const Text('Ver Más'),
-                      ),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                              BarDetailPage(barId: bar.id!)),
+                        ),
+                      },
+                      style: const ButtonStyle(alignment: Alignment.center),
+                      child: const Text('Ver Más'),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        child: const Text('Reservar'),
-                        onPressed: () {},
-                      ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      child: const Text('Reservar'),
+                      onPressed: () {},
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              )
+            ),
           ],
         ),
       ),
@@ -194,3 +211,58 @@ class BottomLoader extends StatelessWidget {
     ));
   }
 }
+
+class FavoriteWidget extends StatefulWidget {
+  const FavoriteWidget({super.key});
+
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorited = false;
+  late LocalStorageService _localStorageService;
+  late UserRepository _userRepository;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: (_isFavorited
+              ? const Icon(Icons.favorite)
+              : const Icon(Icons.favorite_border)),
+            color: Colors.red.shade800,
+            onPressed: _toggleFavorite,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if (_isFavorited) {
+        _isFavorited = false;
+      } else {
+        _isFavorited = true;
+      }
+    });
+  }
+}
+
+
+/* Padding(
+padding: const EdgeInsets.all(0),
+child: IconButton(
+  icon: (_isFavorited
+      ? Icon(Icons.star)
+      : Icon(Icons.star_border)),
+  color: Colors.red[500],
+  onPressed: _toggleFavorite(bar),
+),
+),*/

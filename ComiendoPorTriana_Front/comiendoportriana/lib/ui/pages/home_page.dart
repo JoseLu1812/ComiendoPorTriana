@@ -37,7 +37,7 @@ List<Widget> _widgetOptions = <Widget>[
     }
     return const Text("Loading");
   }),
-  ProfilePage(),
+  const ProfilePage(),
 ];
 
 class HomePage extends StatefulWidget {
@@ -80,12 +80,15 @@ class _HomePageState extends State<HomePage> {
             label: 'Restaurantes',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos'
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Perfil',
           ),
         ],
         currentIndex: _selectedIndex,
-        //selectedItemColor: Colors.amber[700],
         onTap: _onItemTapped,
       ),
     );

@@ -30,7 +30,7 @@ class _RegisterFormState extends State<RegisterFormPage> {
           child: Builder(
             builder: (context) {
               return Scaffold(
-                backgroundColor: Colors.amber.shade500,
+                backgroundColor: Colors.red.shade700,
                 appBar: AppBar(title: const Text('User')),
                 body: FormBlocListener<UserFormBloc, String, String>(
                   onSubmitting: (context, state) {
