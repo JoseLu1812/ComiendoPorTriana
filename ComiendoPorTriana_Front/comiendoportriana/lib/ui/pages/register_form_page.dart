@@ -168,10 +168,10 @@ class _SuccessScreenState extends State<SuccessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimary,
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Icon(
               Icons.check_circle_outline_rounded,
               size: 100,

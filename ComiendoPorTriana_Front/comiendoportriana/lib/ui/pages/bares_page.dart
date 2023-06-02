@@ -16,9 +16,11 @@ class BaresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Title(color: Colors.black, child: const Text('BARES'));
-    return BlocProvider(
-      create: (context) => BarBloc()..add(BarFetched()),
-      child: const BaresBody(),
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => BarBloc()..add(BarFetched()),
+        child: const BaresBody(),
+      ),
     );
   }
 }
@@ -49,15 +51,15 @@ class _BaresBodyState extends State<BaresBody> {
         case BarStatus.failure:
           return Center(
             child: Column(
-            children: [
-              const Text('Error de carga', style: TextStyle(fontSize: 20)),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<BarBloc>().add(BarFetched());
-                },
-                child: const Text('Reintentar'),
-              ),
-            ],
+              children: [
+                const Text('Error de carga', style: TextStyle(fontSize: 20)),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<BarBloc>().add(BarFetched());
+                  },
+                  child: const Text('Reintentar'),
+                ),
+              ],
           ));
         case BarStatus.success:
           if (state.bar.isEmpty) {
@@ -66,11 +68,11 @@ class _BaresBodyState extends State<BaresBody> {
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               return index >= state.bar.length
-                ? const BottomLoader()
-                : _barItem(state.bar[index]);
+                  ? const BottomLoader()
+                  : _barItem(state.bar[index]);
             },
             itemCount:
-              state.hasReachedMax ? state.bar.length : state.currentPage + 1,
+                state.hasReachedMax ? state.bar.length : state.bar.length + 1,
             controller: _scrollController,
           );
         case BarStatus.initial:
@@ -94,12 +96,11 @@ class _BaresBodyState extends State<BaresBody> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              flex: 5,
-              child: Image.network(
-                imgBase + bar.image!,
-                fit: BoxFit.cover,
-              )
-            ),
+                flex: 5,
+                child: Image.network(
+                  imgBase + bar.image!,
+                  fit: BoxFit.cover,
+                )),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -108,7 +109,7 @@ class _BaresBodyState extends State<BaresBody> {
                   child: Text(
                     bar.name!,
                     style: const TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20),
+                        fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
                 const Padding(
@@ -122,9 +123,9 @@ class _BaresBodyState extends State<BaresBody> {
               child: Text(
                 bar.address!,
                 style: TextStyle(
-                  fontSize: 9,
-                  fontFamily: 'Couture',
-                  color: Colors.redAccent.shade700),
+                    fontSize: 9,
+                    fontFamily: 'Couture',
+                    color: Colors.redAccent.shade700),
                 textAlign: TextAlign.end,
               ),
             ),
@@ -133,42 +134,41 @@ class _BaresBodyState extends State<BaresBody> {
               child: Text(
                 bar.description!,
                 style: const TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'Couture',
-                  fontWeight: FontWeight.normal),
+                    fontSize: 10.0,
+                    fontFamily: 'Couture',
+                    fontWeight: FontWeight.normal),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                              BarDetailPage(barId: bar.id!)),
-                        ),
-                      },
-                      style: const ButtonStyle(alignment: Alignment.center),
-                      child: const Text('Ver Más'),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BarDetailPage(barId: bar.id!)),
+                          ),
+                        },
+                        style: const ButtonStyle(alignment: Alignment.center),
+                        child: const Text('Ver Más'),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child: const Text('Reservar'),
-                      onPressed: () {},
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                        child: const Text('Reservar'),
+                        onPressed: () {},
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ),
+                  ],
+                )),
           ],
         ),
       ),
@@ -191,7 +191,7 @@ class _BaresBodyState extends State<BaresBody> {
     if (_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 1);
+    return currentScroll >= (maxScroll * 0.9);
   }
 }
 
@@ -224,7 +224,6 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   late LocalStorageService _localStorageService;
   late UserRepository _userRepository;
 
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -234,8 +233,8 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
           padding: EdgeInsets.all(0),
           child: IconButton(
             icon: (_isFavorited
-              ? const Icon(Icons.favorite)
-              : const Icon(Icons.favorite_border)),
+                ? const Icon(Icons.favorite)
+                : const Icon(Icons.favorite_border)),
             color: Colors.red.shade800,
             onPressed: _toggleFavorite,
           ),

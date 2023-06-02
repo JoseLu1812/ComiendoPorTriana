@@ -1,5 +1,4 @@
 import 'package:comiendoportriana/models/bar_list.dart';
-import 'package:comiendoportriana/models/bar_response.dart';
 import 'package:comiendoportriana/repositories/bar_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -13,11 +12,11 @@ class BarService {
     _barRepository = GetIt.I.get<BarRepository>();
   }
 
-  Future<BarList> getListaBares(int pag) async {
+  Future<List<BarContent>> getListaBares([int pag = 0]) async {
     return _barRepository.getListaBares(pag);
   }
 
-  Future<BarResponse> getBarContent(String barId) async {
+  Future<BarContent> getBarContent(String barId) async {
     return _barRepository.getBarContent(barId);
   }
 }

@@ -12,7 +12,7 @@ part 'bar_details_state.dart';
 class BarDetailsBloc extends Bloc<BarDetailsEvent, BarDetailsState> {
   late final BarService _barService;
 
-  BarDetailsBloc() : super(BarDetailsInitial()) {
+  BarDetailsBloc() : super(const BarDetailsInitial(status: BarDetailsStatus.initial) as BarDetailsState) {
     _barService = getIt<BarService>();
     on<LoadBarDetails>(
       _onLoadBarDetails,
@@ -23,10 +23,9 @@ class BarDetailsBloc extends Bloc<BarDetailsEvent, BarDetailsState> {
       LoadBarDetails event, Emitter<BarDetailsState> emit) async {
     try {
       final barDetail = await _barService.getBarContent(event.barId);
-      return emit(BarDetailsState(
-          id: event.barId, bar: barDetail, status: BarDetailsStatus.success));
+      return emit(BarDetailsState(bar: barDetail , status: BarDetailsStatus.success));
     } catch (_) {
-      emit(BarDetailsState(id: event.barId, status: BarDetailsStatus.failure));
+      //emit(const BarDetailsState());
     }
   }
 

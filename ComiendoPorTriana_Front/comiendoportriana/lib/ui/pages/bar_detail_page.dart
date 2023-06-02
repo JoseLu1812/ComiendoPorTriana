@@ -1,6 +1,6 @@
 
 import 'package:comiendoportriana/blocs/bar_details/bar_details_bloc.dart';
-import 'package:comiendoportriana/models/bar_response.dart';
+import 'package:comiendoportriana/models/bar_list.dart';
 import 'package:comiendoportriana/models/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,15 +34,15 @@ class _BarDetailsBodyState extends State<BarDetailsBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<BarDetailsBloc, BarDetailsState>(
         builder: (context, state) {
-      switch (state.status!) {
+      switch (state.status) {
         case BarDetailsStatus.failure:
           return Center(
-              child: Column(
+            child: Column(
             children: [
               const Text('Error de carga', style: TextStyle(fontSize: 20)),
               ElevatedButton(
                 onPressed: () {
-                  context.read<BarDetailsBloc>().add(LoadBarDetails(state.id));
+                  context.read<BarDetailsBloc>().add(LoadBarDetails(state.bar!.id!));
                 },
                 child: const Text('Reintentar'),
               ),
@@ -59,7 +59,7 @@ class _BarDetailsBodyState extends State<BarDetailsBody> {
   }
 }
 
-_barBody(BarResponse bar) {
+_barBody(BarContent bar) {
   return SizedBox(
     height: 600,
     child: Card(
@@ -82,7 +82,7 @@ _barBody(BarResponse bar) {
           Padding(
             padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
             child: Text(
-              bar.nombre!,
+              bar.name!,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           ),
@@ -100,7 +100,7 @@ _barBody(BarResponse bar) {
           Padding(
             padding: const EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
             child: Text(
-              bar.descripcion!,
+              bar.description!,
               style: const TextStyle(
                   fontSize: 16,
                   fontFamily: 'Couture',
@@ -129,17 +129,18 @@ _barBody(BarResponse bar) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
                     child: _commentsListBody(bar.comments!),
-                  ),
+                  ),*/
                   FloatingActionButton(
                     onPressed: () => {},
-                    child: const Icon(Icons.add),
                     backgroundColor: Colors.red.shade800,
                     foregroundColor: Colors.white,
                     hoverColor: Colors.red.shade400,
                     elevation: 10,
+                    
+                    child: const Icon(Icons.add),
                   ),
                 ],
               ),
@@ -160,17 +161,18 @@ _barBody(BarResponse bar) {
 
 _commentsListBody(List<Comment> lista) {
   return ListView.builder(
-      itemCount: lista.length,
-      itemBuilder: (context, index) {
-        final comment = lista[index];
+    itemCount: lista.length,
+    itemBuilder: (context, index) {
+      final comment = lista[index];
 
-        return Card(
-          child: ListTile(
-            leading: Title(
-                color: Colors.red.shade800, child: Text(comment.username!)),
-            title: Text(comment.title!),
-            subtitle: Text(comment.body!),
-          ),
-        );
-      });
+      return Card(
+        child: ListTile(
+          leading: Title(
+              color: Colors.red.shade800, child: Text(comment.username!)),
+          title: Text(comment.title!),
+          subtitle: Text(comment.body!),
+        ),
+      );
+    }
+  );
 }

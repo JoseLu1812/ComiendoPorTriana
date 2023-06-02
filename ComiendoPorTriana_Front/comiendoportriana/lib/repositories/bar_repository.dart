@@ -1,5 +1,4 @@
 import 'package:comiendoportriana/models/bar_list.dart';
-import 'package:comiendoportriana/models/bar_response.dart';
 import 'package:comiendoportriana/rest/rest.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:convert';
@@ -17,16 +16,16 @@ class BarRepository {
     _rest = GetIt.I.get<RestAuthenticatedClient>();
   }
 
-  Future<BarList> getListaBares(int pag) async {
+  Future<List<BarContent>> getListaBares(int pag) async {
     String url = '$urlBase?page=$pag';
     var response = await _rest.get(url);
-    return BarList.fromJson(jsonDecode(response));
+    final bares = BarList.fromJson(jsonDecode(response));
+    return bares.content!;
   }
 
-  Future<BarResponse> getBarContent(String barId) async {
-    String url = "$urlBase/$barId";
+  Future<BarContent> getBarContent(String barId) async {
+    String url = '$urlBase/$barId';
     var response = await _rest.get(url);
-    return BarResponse.fromJson(jsonDecode(response));
+    return BarContent.fromJson(jsonDecode(response));
   }
-
 }

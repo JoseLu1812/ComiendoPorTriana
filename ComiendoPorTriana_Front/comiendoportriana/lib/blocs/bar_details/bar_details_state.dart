@@ -3,19 +3,18 @@ part of 'bar_details_bloc.dart';
 enum BarDetailsStatus { initial, success, failure }
 
 class BarDetailsState extends Equatable {
+  const BarDetailsState({this.bar, required this.status});
 
-  final String id;
-  final BarDetailsStatus? status;
-  BarResponse? bar;
+  final BarDetailsStatus status;
+  final BarContent? bar;
 
-  BarDetailsState({
-    this.id = "", 
-    this.status = BarDetailsStatus.initial, 
-    this.bar
-  });
+  BarDetailsState copyWith({BarDetailsStatus? status, BarContent? bar}) {
+    return BarDetailsState(status: status ?? this.status, bar: bar ?? this.bar);
+  }
 
   @override
-  List<Object> get props => [id, status!, bar!];
+  List<Object> get props => [status, bar!];
 }
 
-class BarDetailsInitial extends BarDetailsState {}
+class BarDetailsInitial extends BarDetailsState {
+  const BarDetailsInitial({required super.status});}
