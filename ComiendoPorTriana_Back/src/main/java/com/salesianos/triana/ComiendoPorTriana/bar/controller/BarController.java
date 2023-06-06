@@ -30,6 +30,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -311,6 +312,12 @@ public class BarController {
         service.delete(id, logged);
 
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/bar/{id}/comment")
+    public List<CommentResponseDto> getComments(@PathVariable UUID id) {
+        return service.getComments(id);
     }
 
 

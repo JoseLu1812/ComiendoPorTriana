@@ -13,42 +13,46 @@ class _CommentFormState extends State<CommentFormPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CommentFormBloc(),
-      child: Builder(builder: (context) {
-        final formBloc = BlocProvider.of<CommentFormBloc>(context);
+        create: (context) => CommentFormBloc(),
+        child: Builder(builder: (context) {
+          final formBloc = BlocProvider.of<CommentFormBloc>(context);
 
-      return AlertDialog(
-        scrollable: true,
-        content: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Título',
-                    icon: Icon(Icons.title_outlined),
+          return Theme(
+              data: Theme.of(context).copyWith(
+                  inputDecorationTheme: InputDecorationTheme(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red.shade800)))),
+              child: Builder(builder: (context) {
+                return AlertDialog(
+                  scrollable: true,
+                  content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Título',
+                              icon: Icon(Icons.title_outlined),
+                            ),
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Cuerpo',
+                              icon: Icon(Icons.text_snippet_outlined),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Cuerpo',
-                    icon: Icon(Icons.text_snippet_outlined),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-              onPressed: () {},
-              //onPressed: formBloc.submit(),
-              child: const Text("Comentar")
-              )
-        ],
-      );        
-      }),
-    );
+                  actions: [
+                    TextButton(
+                        onPressed: formBloc.submit,
+                        child: const Text("Comentar"))
+                  ],
+                );
+              }));
+        }));
   }
 }
