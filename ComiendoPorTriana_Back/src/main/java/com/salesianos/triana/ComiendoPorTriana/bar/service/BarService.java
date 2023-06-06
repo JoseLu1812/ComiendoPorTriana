@@ -7,6 +7,7 @@ import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.EditBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.repo.BarRepository;
 import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
 import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentRequestDto;
+import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentResponseDto;
 import com.salesianos.triana.ComiendoPorTriana.comment.pk.CommentPk;
 import com.salesianos.triana.ComiendoPorTriana.comment.repo.CommentRepository;
 import com.salesianos.triana.ComiendoPorTriana.exception.BarNotFoundException;
@@ -106,6 +107,22 @@ public class BarService {
                         return "";
                     });
         }
+    }
+
+    public List<CommentResponseDto> getComments(UUID id) {
+        Optional<Bar> opt = repo.findById(id);
+
+        if(opt.isEmpty())
+            throw new BarNotFoundException("El Bar solicitado no ha sido encontrado.");
+
+        Bar bar = opt.get();
+
+        List<CommentResponseDto> lista = new ArrayList<>();
+        bar.getComments().stream().map(c -> {
+           return lista.add(CommentResponseDto.of(c));
+        });
+
+        return lista;
     }
 
     public Bar createComment(UUID id, CommentRequestDto requestDto, User author) {

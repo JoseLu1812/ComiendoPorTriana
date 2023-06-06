@@ -36,7 +36,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   http: ^0.13.0
   stream_transform: ^2.0.0
-  get_it: ^7.2.0
+  get_it: ^7.6.0
   injectable: ^2.1.0 
   flutter_native_splash: ^2.2.17
   shared_preferences: ^2.0.17
@@ -92,6 +92,10 @@ flutter:
     - family: KeepCalm
       fonts:
         - asset: assets/fonts/KeepCalm-Medium.ttf
+
+    - family: LouisCafe
+      fonts:
+        - asset: assets/fonts/louis_cafe.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

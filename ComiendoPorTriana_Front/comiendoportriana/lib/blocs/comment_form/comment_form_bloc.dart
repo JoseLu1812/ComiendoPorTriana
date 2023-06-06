@@ -2,6 +2,7 @@ import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/comment_request.dart';
 import 'package:comiendoportriana/services/comment_service.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 
 class CommentFormBloc extends FormBloc<String, String> {
@@ -19,20 +20,16 @@ class CommentFormBloc extends FormBloc<String, String> {
     validators: [FieldBlocValidators.required],
   );
 
-
   CommentFormBloc() {
     _commentService = getIt<CommentService>();
     addFieldBlocs(fieldBlocs: [title, body, barId]);
   }
-  
 
   @override
-  onSubmitting() async {
+  void onSubmitting() async {
     try {
       await _commentService.postNewComment(
-        CommentRequest(title.value, body.value), 
-        barId.value
-      );
+          CommentRequest(title.value, body.value), barId.value);
       emitSuccess();
     } catch (e) {
       emitFailure();

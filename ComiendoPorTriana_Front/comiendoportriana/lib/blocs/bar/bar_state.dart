@@ -6,13 +6,13 @@ enum BarStatus {initial, success, failure}
 class BarState extends Equatable {
   const BarState({
     this.status = BarStatus.initial,
-    this.bar = const <BarContent>[],
+    this.bar,
     this.hasReachedMax = false,
     this.currentPage = 0
   });
 
   final BarStatus status;
-  final List<BarContent> bar;
+  final List<BarContent>? bar;
   final bool hasReachedMax;
   final int currentPage;
 
@@ -36,6 +36,6 @@ class BarState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, bar, hasReachedMax, currentPage];
+  List<Object> get props => [status, hasReachedMax, currentPage];
 
 }

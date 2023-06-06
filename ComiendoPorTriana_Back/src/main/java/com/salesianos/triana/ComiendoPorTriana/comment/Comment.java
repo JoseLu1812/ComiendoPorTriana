@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -26,6 +27,10 @@ public class Comment {
     @ManyToOne()
     @MapsId("barId")
     private Bar bar;
+
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private UUID id;
 
     @MapsId("userId")
     @ManyToOne()

@@ -1,8 +1,10 @@
 import 'package:comiendoportriana/blocs/bar/bar.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
+import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
 import 'package:comiendoportriana/models/models.dart';
 import 'package:comiendoportriana/repositories/repositories.dart';
+import 'package:comiendoportriana/services/authentication_service.dart';
 import 'package:comiendoportriana/services/localstorage_service.dart';
 import 'package:comiendoportriana/ui/pages/bar_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -50,29 +52,29 @@ class _BaresBodyState extends State<BaresBody> {
       switch (state.status) {
         case BarStatus.failure:
           return Center(
-            child: Column(
-              children: [
-                const Text('Error de carga', style: TextStyle(fontSize: 20)),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<BarBloc>().add(BarFetched());
-                  },
-                  child: const Text('Reintentar'),
-                ),
-              ],
+              child: Column(
+            children: [
+              const Text('Error de carga', style: TextStyle(fontSize: 20)),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<BarBloc>().add(BarFetched());
+                },
+                child: const Text('Reintentar'),
+              ),
+            ],
           ));
         case BarStatus.success:
-          if (state.bar.isEmpty) {
+          if (state.bar!.isEmpty) {
             return const Center(child: Text('No hay restaurantes'));
           }
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return index >= state.bar.length
+              return index >= state.bar!.length
                   ? const BottomLoader()
-                  : _barItem(state.bar[index]);
+                  : _barItem(state.bar![index]);
             },
             itemCount:
-                state.hasReachedMax ? state.bar.length : state.bar.length + 1,
+                state.hasReachedMax ? state.bar!.length : state.bar!.length + 1,
             controller: _scrollController,
           );
         case BarStatus.initial:
@@ -123,8 +125,8 @@ class _BaresBodyState extends State<BaresBody> {
               child: Text(
                 bar.address!,
                 style: TextStyle(
-                    fontSize: 9,
-                    fontFamily: 'Couture',
+                    fontSize: 14,
+                    fontFamily: 'LouisCafe',
                     color: Colors.redAccent.shade700),
                 textAlign: TextAlign.end,
               ),
@@ -132,10 +134,10 @@ class _BaresBodyState extends State<BaresBody> {
             Padding(
               padding: const EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
               child: Text(
-                bar.description!,
+                bar.description! + '..',
                 style: const TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'Couture',
+                    fontSize: 16.0,
+                    fontFamily: 'LouisCafe',
                     fontWeight: FontWeight.normal),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -147,7 +149,8 @@ class _BaresBodyState extends State<BaresBody> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: TextButton(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.remove_red_eye_outlined) ,
                         onPressed: () => {
                           Navigator.push(
                             context,
@@ -157,14 +160,15 @@ class _BaresBodyState extends State<BaresBody> {
                           ),
                         },
                         style: const ButtonStyle(alignment: Alignment.center),
-                        child: const Text('Ver Más'),
+                        label: const Text('Ver Más'),
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: TextButton(
-                        child: const Text('Reservar'),
-                        onPressed: () {},
+                      child: TextButton.icon(
+                        onPressed: () => {},
+                        icon: const Icon(Icons.table_restaurant_outlined),
+                        label: const Text("Reservar"),
                       ),
                     ),
                   ],
@@ -221,8 +225,6 @@ class FavoriteWidget extends StatefulWidget {
 
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   bool _isFavorited = false;
-  late LocalStorageService _localStorageService;
-  late UserRepository _userRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +232,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           child: IconButton(
             icon: (_isFavorited
                 ? const Icon(Icons.favorite)
@@ -247,6 +249,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
     setState(() {
       if (_isFavorited) {
         _isFavorited = false;
+
       } else {
         _isFavorited = true;
       }

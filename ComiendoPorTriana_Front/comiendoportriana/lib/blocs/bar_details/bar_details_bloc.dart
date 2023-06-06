@@ -12,7 +12,7 @@ part 'bar_details_state.dart';
 class BarDetailsBloc extends Bloc<BarDetailsEvent, BarDetailsState> {
   late final BarService _barService;
 
-  BarDetailsBloc() : super(const BarDetailsInitial(status: BarDetailsStatus.initial) as BarDetailsState) {
+  BarDetailsBloc() : super(const BarDetailsInitial(status: BarDetailsStatus.initial)) {
     _barService = getIt<BarService>();
     on<LoadBarDetails>(
       _onLoadBarDetails,

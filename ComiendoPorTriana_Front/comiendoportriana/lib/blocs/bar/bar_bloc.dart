@@ -1,10 +1,8 @@
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
-import 'package:comiendoportriana/models/comment.dart';
 import 'package:comiendoportriana/models/models.dart';
 import 'package:comiendoportriana/services/bar_service.dart';
 import 'package:equatable/equatable.dart';
@@ -26,7 +24,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 class BarBloc extends Bloc<BarEvent, BarState> {
   late final BarService _barService;
 
-  BarBloc() : super(const BarState()) {
+  BarBloc() : super(BarState()) {
     _barService = getIt<BarService>();
 
     on<BarFetched>(
@@ -57,7 +55,7 @@ class BarBloc extends Bloc<BarEvent, BarState> {
           : emit(
               state.copyWith(
                   status: BarStatus.success,
-                  bar: List.of(state.bar)..addAll(bares),
+                  bar: List.of(state.bar!)..addAll(bares),
                   hasReachedMax: false),
             );
     } catch (_) {
