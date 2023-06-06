@@ -77,11 +77,13 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/bar/comment/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/bar/**").hasAnyRole("BARMAN")
-                .antMatchers(HttpMethod.PUT, "/bar/**").hasAnyRole("BARMAN")
-                .antMatchers(HttpMethod.DELETE, "/bar/**").hasAnyRole("BARMAN")
-                .antMatchers("/auth/register/admin").hasRole("BARMAN")
+                .antMatchers(HttpMethod.POST, "/bar/**").hasAnyRole("ADMIN", "BARMAN")
+                .antMatchers(HttpMethod.PUT, "/bar/**").hasAnyRole("ADMIN", "BARMAN")
+                .antMatchers(HttpMethod.DELETE, "/bar/**").hasAnyRole("ADMIN", "BARMAN")
+                .antMatchers(HttpMethod.POST, "/comment/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/comment/**").hasAnyRole("ADMIN", "BARMAN")
+                .antMatchers(HttpMethod.PUT, "/comment/**").hasAnyRole("ADMIN", "BARMAN")
+                .antMatchers("/auth/register/admin").hasRole("ADMIN")
                 .antMatchers("/me/**").authenticated()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll();
