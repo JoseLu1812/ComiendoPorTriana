@@ -1,6 +1,9 @@
 package com.salesianos.triana.ComiendoPorTriana.user.service;
 
 
+import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
+import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentResponseDto;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
 import com.salesianos.triana.ComiendoPorTriana.user.model.UserRole;
 import com.salesianos.triana.ComiendoPorTriana.user.model.dto.CreateUserRequest;
@@ -9,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,6 +83,17 @@ public class UserService {
     }
 
 
+    public List<Bar> getFavourites(UUID id){
+        Optional<User> opt = userRepository.findById(id);
+
+        if(opt.isEmpty())
+            throw new RuntimeException();
+
+        User user = opt.get();
+
+        List<Bar> bares = user.getFavList();
+        return bares;
+    }
 
 //    public boolean checkCommentOwner(Comment comment, UUID id){
 //        return userRepository.findFirstById(id)

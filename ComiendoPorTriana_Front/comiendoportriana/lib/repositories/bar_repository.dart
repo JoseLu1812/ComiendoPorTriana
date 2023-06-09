@@ -28,4 +28,16 @@ class BarRepository {
     var response = await _rest.get(url);
     return BarContent.fromJson(jsonDecode(response));
   }
+
+  Future<void> addToFavourites(String id) async {
+    String url = '$urlBase/favourites/add/$id';
+    var response = await _rest.post(url, id);
+    return response;
+  }
+
+  Future<void> deleteFromFavourites(String id) async {
+    String url = '$urlBase/favourites/delete/$id';
+    var response = await _rest.delete(url, id);
+    return response;
+  }
 }

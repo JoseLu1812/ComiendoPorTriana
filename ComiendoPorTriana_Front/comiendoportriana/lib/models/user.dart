@@ -7,7 +7,6 @@ class User {
   String? fullName;
   String? email;
   List<BarContent>? favList;
-  //List<Null>? comments;
   String? createdAt;
 
   User(
@@ -16,7 +15,6 @@ class User {
       this.fullName,
       this.email,
       this.favList,
-      //this.comments,
       this.createdAt});
 
   User.fromLoginResponse(LoginResponse response) {
@@ -25,7 +23,6 @@ class User {
     this.fullName = response.fullName;
     this.email = response.email;
     this.favList = response.favList;
-    //this.comments = response;
     this.createdAt = response.createdAt;
   }
 }
@@ -45,11 +42,6 @@ class UserResponse extends User {
         favList!.add(new BarContent.fromJson(v));
       });
     }
-    //if (json['comments'] != null) {
-    //  comments = <Null>[];
-    //  ['comments'].forEach((v) {
-    //  });
-    //}
     createdAt = json['createdAt'];
   }
   Map<String, dynamic> toJson() {
@@ -61,9 +53,6 @@ class UserResponse extends User {
     if (this.favList != null) {
       data['favList'] = this.favList!.map((v) => v.toJson()).toList();
     }    
-    //if (this.comments != null) {
-    //  data['comments'] = this.comments!.map((v) => v.toJson()).toList();
-    //}
     data['createdAt'] = this.createdAt;
     return data;
   }
