@@ -83,7 +83,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/comment/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/comment/**").hasAnyRole("ADMIN", "BARMAN")
                 .antMatchers(HttpMethod.PUT, "/comment/**").hasAnyRole("ADMIN", "BARMAN")
-                .antMatchers("/auth/register/admin").hasRole("ADMIN")
+                .antMatchers("/admin/register/admin").hasRole("ADMIN")
+                .antMatchers("/admin/users").hasRole("ADMIN")
+                .antMatchers("/admin/users/**").hasRole("ADMIN")
                 .antMatchers("/me/**").authenticated()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll();

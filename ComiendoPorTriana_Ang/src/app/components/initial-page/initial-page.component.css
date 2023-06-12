@@ -1,0 +1,79 @@
+
+/* Header */
+@font-face {
+  font-family: 'KeepCalm';
+  src: url('../../../assets/fonts/KeepCalm-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Louis';
+  src: url('../../../assets/fonts/louis_cafe.ttf');
+}
+
+mat-toolbar {
+  background-color: #9C240A;
+  font-family: 'KeepCalm', sans-serif;
+  color: white;
+}
+
+.icon-color{
+  color: #9C240A;
+}
+
+.botones-menu {
+  color: #9C240A;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+
+#titulo{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.logo{
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(125deg) brightness(102%) contrast(102%);
+}
+
+a{
+  text-decoration:none;
+  color: white;
+}
+
+
+
+/* Cuerpo */
+.view-container {
+  font-family: "Louis", sans-serif;
+  min-height: calc(100vh - 400px);
+  display: block;
+}
+
+.category {
+  margin-top: 2em;
+  margin-right: 0%;
+  width: 28%;
+}
+
+.category:nth-child(3n + 1) {
+  clear: left;
+}
+
+.card {
+  border-radius: 2px;
+  background-color: #FFF;
+  overflow: hidden;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 14%), 0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 8%);
+}
+
+mat-card-title{
+  font-family: "KeepCalm", sans-serif;
+}

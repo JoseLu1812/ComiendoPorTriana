@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,15 +27,22 @@ public class UserController {
     private final AuthenticationManager authManager;
     private final JwtProvider jwtProvider;
 
-    @PostMapping("/auth/register")
+    @PostMapping("/auth/register/user")
     public ResponseEntity<User> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithUserRole(createUserRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
+    @PostMapping("/auth/register/barman")
+    public ResponseEntity<User> createUserWithBarmanRole(@RequestBody CreateUserRequest createUserRequest) {
+        User user = userService.createUserWithBarmanRole(createUserRequest);
 
-    @PostMapping("/auth/register/admin")
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+
+    @PostMapping("/admin/register/admin")
     public ResponseEntity<User> createUserWithAdminRole(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithAdminRole(createUserRequest);
 
@@ -87,6 +95,16 @@ public class UserController {
         return UserResponse.fromUser(loggedUser);
     }
 
+    @GetMapping("/admin/users")
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
 
+    @GetMapping("/admin/users/{username}")
+    public UserResponse getUserByUsername(@PathVariable String username){
+        Optional<User> opt =  userService.findByUsername(username);
+        User user = opt.get();
+        return UserResponse.fromUser(user);
+    }
 
 }

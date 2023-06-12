@@ -26,8 +26,8 @@ public class JwtUserResponse extends UserResponse {
         fullName = userResponse.getFullName();
         email = userResponse.getEmail();
         List<Bar> favList = userResponse.getFavList();
-        //List<Comment> comments = userResponse.getComments();
         createdAt = userResponse.getCreatedAt();
+        roles = userResponse.getRoles();
     }
 
     public static JwtUserResponse of (User user, String token) {

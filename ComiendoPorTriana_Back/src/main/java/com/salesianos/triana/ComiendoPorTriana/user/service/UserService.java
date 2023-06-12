@@ -6,6 +6,7 @@ import com.salesianos.triana.ComiendoPorTriana.user.model.UserRole;
 import com.salesianos.triana.ComiendoPorTriana.user.model.dto.CreateUserRequest;
 import com.salesianos.triana.ComiendoPorTriana.user.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,12 @@ public class UserService {
         return createUser(createUserRequest, EnumSet.of(UserRole.CLIENT));
     }
 
-    public User createUserWithAdminRole(CreateUserRequest createUserRequest) {
+    public User createUserWithBarmanRole(CreateUserRequest createUserRequest){
         return createUser(createUserRequest, EnumSet.of(UserRole.BARMAN));
+    }
+
+    public User createUserWithAdminRole(CreateUserRequest createUserRequest) {
+        return createUser(createUserRequest, EnumSet.of(UserRole.ADMIN));
     }
 
     public List<User> findAll() {
@@ -49,7 +54,12 @@ public class UserService {
     }
 
     public Optional<User> findByUsername(String username) {
-        return userRepository.findFirstByUsername(username);
+        Optional<User> opt = userRepository.findFirstByUsername(username);
+        if(opt.isEmpty()){
+            throw new UsernameNotFoundException("Usuario no encontrado por nombre de usuario");
+        }
+
+        return opt;
     }
 
     public Optional<User> edit(User user) {

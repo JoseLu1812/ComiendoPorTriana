@@ -1,0 +1,106 @@
+<body>
+    <header>
+    <mat-toolbar>
+      <span class="fill-remaining-space">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <span (mouseleave)="menuTrigger.closeMenu()">
+
+            <button mat-menu-item class="botones-menu">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">restaurant</mat-icon>
+                <span>Restaurantes</span>
+              </span>
+            </button>
+
+            <button mat-menu-item>
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">table_restaurant</mat-icon>
+                <span>Reservas</span>
+              </span>
+
+            </button>
+
+            <button mat-menu-item>
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">logout</mat-icon>
+                <span>Cerrar Sesión</span>
+              </span>
+
+            </button>
+          </span>
+        </mat-menu>
+      </span>
+
+      <div class="fill-remaining-space">
+        <a routerLink="/initial-page">
+          <div id="titulo">
+            <span><img src="../../../assets/images/logo-title.png" alt="Logo ComiendoPorTriana" height="150px" class="logo"></span>
+            <span>Comiendo Por Triana</span>
+          </div>
+        </a>
+      </div>
+    </mat-toolbar>
+  </header>
+
+  <div fxLayout="row wrap" fxLayoutAlign="space-around start" class="justify-content-center">
+    <mat-card class="example-card" *ngFor="let bar of baresList.content">
+      <mat-card-header>
+        <mat-card-title>{{bar.name}}</mat-card-title>
+        <mat-card-subtitle>{{bar.address}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="getBarImage(bar.image)">
+      <mat-card-content>
+        <p>{{bar.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button>
+          <a routerLink="">
+            <mat-icon class="icon-color">
+              <span class="material-symbols-outlined">
+              keyboard_arrow_right
+              </span>
+            </mat-icon>
+          </a>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="py-2" *ngIf="baresList.totalPages > 1">
+    <nav class="block">
+      <ul class="flex pl-0 rounded list-none flex-wrap">
+        <li>
+          <a (click)="changePage(0)" class="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-red-500 bg-white text-red-500">
+            <i class="fas fa-chevron-left -ml-px"></i>
+            <i class="fas fa-chevron-left -ml-px"></i>
+          </a>
+        </li>
+        <li>
+          <a (click)="changePage(baresList.pageable.pageNumber-1)" class="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-red-500 bg-white text-red-500">
+            <i class="fas fa-chevron-left -ml-px"></i>
+          </a>
+        </li>
+        <li *ngFor="let n of counter(); let i = index">
+          <a [ngClass]="i+1 == baresList.pageable.pageNumber ? 'text-white + bg-red-500' : 'bg-white + text-red-500'" (click)="changePage(baresList.pageable.pageNumber+1)" *ngIf="(i+1) > baresList.pageable.pageNumber-3 && (i+1) < baresList.pageable.pageNumber+3" class="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-red-500">
+            {{i+1}}
+          </a>
+        </li>
+        <li>
+          <a (click)="changePage(baresList.pageable.pageNumber+1)" class="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-red-500 bg-white text-red-500">
+            <i class="fas fa-chevron-right -mr-px"></i>
+          </a>
+        </li>
+        <li>
+          <a (click)="changePage(baresList.totalPages-1)" class="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-red-500 bg-white text-red-500">
+            <i class="fas fa-chevron-right -mr-px"></i>
+            <i class="fas fa-chevron-right -mr-px"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
