@@ -25,7 +25,7 @@ class BarDetailsBloc extends Bloc<BarDetailsEvent, BarDetailsState> {
       final barDetail = await _barService.getBarContent(event.barId);
       return emit(BarDetailsState(bar: barDetail , status: BarDetailsStatus.success));
     } catch (_) {
-      //emit(const BarDetailsState());
+      emit(const BarDetailsFailure(status: BarDetailsStatus.failure));
     }
   }
 

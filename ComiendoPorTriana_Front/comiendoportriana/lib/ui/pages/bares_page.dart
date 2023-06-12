@@ -197,6 +197,23 @@ class _BaresBodyState extends State<BaresBody> {
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
   }
+
+  Widget favorite(context){
+    if()
+  }
+
+
+  void _toggleFavorite() {
+  setState(() {
+    if (_isFavorited) {
+      _isFavorited = false;
+
+    } else {
+      _isFavorited = true;
+    }
+  });
+  }
+
 }
 
 class BottomLoader extends StatelessWidget {
@@ -256,6 +273,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
     });
   }
 }
+
 
 
 /* Padding(

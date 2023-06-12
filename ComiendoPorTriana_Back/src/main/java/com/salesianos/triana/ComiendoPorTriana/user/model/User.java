@@ -1,7 +1,8 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model;
 
 import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
-import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
+import com.salesianos.triana.ComiendoPorTriana.user.model.dto.UserResponse;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -15,6 +16,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/*@NamedEntityGraph(name = "user_entity_graph",
+attributeNodes = {
+        @NamedAttributeNode("favList")
+})*/
 @Entity
 @Table(name="user_entity")
 @NoArgsConstructor
@@ -118,7 +123,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-    
 
 
 }

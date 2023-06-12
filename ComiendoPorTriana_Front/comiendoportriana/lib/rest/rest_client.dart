@@ -62,7 +62,10 @@ class RestClient {
   Future<dynamic> post(String url, dynamic body) async {
       try {
         Uri uri = Uri.parse(ApiConstants.baseUrl + url);
-        final response = await _httpClient.post(uri, body: jsonEncode(body));
+
+        Map<String, String> headers = Map();
+        headers.addAll({"Content-Type": 'application/json'});
+        final response = await _httpClient.post(uri, body: jsonEncode(body), headers: headers);
         var responseJson = _response(response);
         return responseJson;
     } on Exception catch(ex) {
@@ -70,7 +73,7 @@ class RestClient {
     }
   }
 
-    Future<dynamic> put(String url, dynamic body) async {
+  Future<dynamic> put(String url, dynamic body) async {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
@@ -79,6 +82,23 @@ class RestClient {
 
       final response =
           await _httpClient!.put(uri, body: jsonEncode(body), headers: headers);
+      var responseJson = _response(response);
+      return responseJson;
+    } on SocketException catch (ex) {
+      throw Exception('No internet connection: ${ex.message}');
+    }
+  }
+
+
+  Future<dynamic> delete(String url, dynamic body) async {
+    try {
+      Uri uri = Uri.parse(ApiConstants.baseUrl + url);
+
+      Map<String, String> headers = Map();
+      headers.addAll({"Content-Type": 'application/json'});
+
+      final response =
+          await _httpClient!.delete(uri, body: jsonEncode(body), headers: headers);
       var responseJson = _response(response);
       return responseJson;
     } on SocketException catch (ex) {

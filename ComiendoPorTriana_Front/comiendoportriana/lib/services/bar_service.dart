@@ -19,4 +19,12 @@ class BarService {
   Future<BarContent> getBarContent(String barId) async {
     return _barRepository.getBarContent(barId);
   }
+
+  Future<void> addToFavourites(String id) async {
+    return _barRepository.addToFavourites(id);
+  }
+
+  Future<void> deleteFromFavourites(String id) async {
+    return _barRepository.deleteFromFavourites(id);
+  }
 }

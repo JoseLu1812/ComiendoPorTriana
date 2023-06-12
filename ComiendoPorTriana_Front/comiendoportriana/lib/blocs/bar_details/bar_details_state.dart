@@ -17,4 +17,9 @@ class BarDetailsState extends Equatable {
 }
 
 class BarDetailsInitial extends BarDetailsState {
-  const BarDetailsInitial({required super.status});}
+  const BarDetailsInitial({required super.status});
+}
+
+class BarDetailsFailure extends BarDetailsState {
+  const BarDetailsFailure({required super.status});
+}

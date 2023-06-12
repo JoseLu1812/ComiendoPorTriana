@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -341,6 +342,19 @@ public class BarController {
         return ResponseEntity.noContent().build();
     }
 
+
+
+    @PostMapping("/bar/favourites/add/{id}")
+    public ResponseEntity<?> addToFavourites(@AuthenticationPrincipal User logged, @PathVariable UUID barId) {
+        service.addToFavourites(logged, barId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/bar/favourites/delete/{id}")
+    public ResponseEntity<?> deleteFromFavourites(@AuthenticationPrincipal User logged, @PathVariable UUID barId) {
+        service.deleteFromFavourites(logged, barId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
 
