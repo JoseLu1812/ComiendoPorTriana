@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/models/favourite_dto.dart';
 import 'package:comiendoportriana/repositories/bar_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -18,5 +21,17 @@ class BarService {
 
   Future<BarContent> getBarContent(String barId) async {
     return _barRepository.getBarContent(barId);
+  }
+
+  Future<void> addToFavourites(String id) async {
+    return _barRepository.addToFavourites(id);
+  }
+
+  Future<void> deleteFromFavourites(String id) async {
+    return _barRepository.deleteFromFavourites(id);
+  }
+
+  Future<FavouriteResponse> isFavourite(String id) async {
+    return _barRepository.isFavourite(id);
   }
 }

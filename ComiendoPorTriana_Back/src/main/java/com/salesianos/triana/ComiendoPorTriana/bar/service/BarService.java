@@ -17,6 +17,7 @@ import com.salesianos.triana.ComiendoPorTriana.search.spec.GenericSpecificationB
 import com.salesianos.triana.ComiendoPorTriana.search.util.SearchCriteria;
 import com.salesianos.triana.ComiendoPorTriana.search.util.SearchCriteriaExtractor;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
+import com.salesianos.triana.ComiendoPorTriana.user.repo.UserRepository;
 import com.salesianos.triana.ComiendoPorTriana.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -41,8 +42,9 @@ public class BarService {
 
     private final CommentRepository commentRepo;
 
-
     private final StorageService storageService;
+
+    private final UserRepository userRepository;
 
     public BarDto findById(UUID id) {
         Optional<Bar> opt = repo.findById(id);
@@ -89,11 +91,12 @@ public class BarService {
 
         return repo.findById(id)
                 .map(b -> {
-                    //userService.checkOwner(b, logged.getId());
                     b.setName(dto.getName());
                     b.setDescription(dto.getDescription());
                     b.setAddress(dto.getAddress());
                     b.setImage(image);
+                    b.setLat(dto.getLat());
+                    b.setLng(dto.getLng());
                     return repo.save(b);
                 })
                 .orElseThrow(() -> new BarNotFoundException("El Bar no existe"));
@@ -167,6 +170,54 @@ public class BarService {
             commentRepo.save(c);
             return repo.save(b);
         }).orElseThrow(() -> new EntityNotFoundException());
+    }
+
+    public void addToFavourites(User logged, UUID id) {
+        Optional<Bar> opt = repo.findById(id);
+        if(opt.isEmpty())
+            throw new BarNotFoundException("El Bar solicitado no ha sido encontrado.");
+
+        Bar bar = opt.get();
+        List<Bar> favourites = logged.getFavList();
+        if(favourites.contains(bar)){
+        } else{
+            favourites.add(bar);
+        }
+
+        logged.setFavList(favourites);
+        userRepository.save(logged);
+    }
+
+    public void deleteFromFavourites(User logged, UUID id) {
+        Optional<Bar> opt = repo.findById(id);
+        if(opt.isEmpty())
+            throw new BarNotFoundException("El Bar solicitado no ha sido encontrado.");
+
+        Bar bar = opt.get();
+
+        List<Bar> favourites = logged.getFavList();
+
+        if(favourites.contains(bar)){
+            favourites.remove(bar);
+        }
+
+        logged.setFavList(favourites);
+        userRepository.save(logged);
+    }
+
+
+    public boolean isFavourite(UUID id, User logged){
+        Optional<Bar> opt = repo.findById(id);
+        if(opt.isEmpty()){
+            throw new BarNotFoundException("Bar no encontrado por id");
+        } else {
+            List<Bar> favlist = logged.getFavList();
+            if (favlist.contains(id)){
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
 
 

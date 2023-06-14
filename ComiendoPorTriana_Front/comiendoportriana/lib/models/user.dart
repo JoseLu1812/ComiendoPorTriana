@@ -7,7 +7,6 @@ class User {
   String? fullName;
   String? email;
   List<BarContent>? favList;
-  //List<Null>? comments;
   String? createdAt;
 
   User(
@@ -16,17 +15,15 @@ class User {
       this.fullName,
       this.email,
       this.favList,
-      //this.comments,
       this.createdAt});
 
   User.fromLoginResponse(LoginResponse response) {
-    this.id = response.id;
-    this.username = response.username;
-    this.fullName = response.fullName;
-    this.email = response.email;
-    this.favList = response.favList;
-    //this.comments = response;
-    this.createdAt = response.createdAt;
+    id = response.id;
+    username = response.username;
+    fullName = response.fullName;
+    email = response.email;
+    favList = response.favList;
+    createdAt = response.createdAt;
   }
 }
 
@@ -42,29 +39,21 @@ class UserResponse extends User {
     if (json['favList'] != null) {
       favList = <BarContent>[];
       json['favList'].forEach((v) {
-        favList!.add(new BarContent.fromJson(v));
+        favList!.add(BarContent.fromJson(v));
       });
     }
-    //if (json['comments'] != null) {
-    //  comments = <Null>[];
-    //  ['comments'].forEach((v) {
-    //  });
-    //}
     createdAt = json['createdAt'];
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['fullName'] = this.fullName;
-    data['email'] = this.email;
-    if (this.favList != null) {
-      data['favList'] = this.favList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['fullName'] = fullName;
+    data['email'] = email;
+    if (favList != null) {
+      data['favList'] = favList!.map((v) => v.toJson()).toList();
     }    
-    //if (this.comments != null) {
-    //  data['comments'] = this.comments!.map((v) => v.toJson()).toList();
-    //}
-    data['createdAt'] = this.createdAt;
+    data['createdAt'] = createdAt;
     return data;
   }
 }

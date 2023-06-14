@@ -1,5 +1,7 @@
 package com.salesianos.triana.ComiendoPorTriana.user.controller;
 
+import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.security.jwt.JwtProvider;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
 import com.salesianos.triana.ComiendoPorTriana.user.model.dto.*;
@@ -14,7 +16,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -100,11 +101,9 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/admin/users/{username}")
-    public UserResponse getUserByUsername(@PathVariable String username){
-        Optional<User> opt =  userService.findByUsername(username);
-        User user = opt.get();
-        return UserResponse.fromUser(user);
+    @GetMapping("/user/favourites")
+    public List<Bar> getFavouritelist(@AuthenticationPrincipal User logged) {
+        return userService.getFavourites(logged.getId());
     }
 
 }

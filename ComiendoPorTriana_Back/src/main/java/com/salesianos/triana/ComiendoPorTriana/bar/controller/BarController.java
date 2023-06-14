@@ -4,6 +4,7 @@ import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.CreateBarDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.EditBarDto;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.FavouriteDto;
 import com.salesianos.triana.ComiendoPorTriana.bar.service.BarService;
 import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentRequestDto;
 import com.salesianos.triana.ComiendoPorTriana.comment.dto.CommentResponseDto;
@@ -18,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -77,7 +79,9 @@ public class BarController {
                                             },
                                         "address": "Avenida Santa Cecilia, 2",
                                         "comments": [],
-                                        "image": "ruperto.jpg"
+                                        "image": "ruperto.jpg",
+                                        "lat": 12.000,
+                                        "lng": 12.000,
                                     }
                                     """))}
             ),
@@ -137,7 +141,9 @@ public class BarController {
                                                     "address": "C/Justino Matute, 6",
                                                     "image": "cibeles.jpg",
                                                     "comments": [],
-                                                    "createdAt": "2023-02-05T00:00:00"
+                                                    "createdAt": "2023-02-05T00:00:00",
+                                                    "lat": 12.000,
+                                                    "lng": 12.000,
                                                 },
                                                 {
                                                 ...
@@ -198,7 +204,9 @@ public class BarController {
                                             },
                                             "address": "C/La Tierra, 1",
                                             "comments": [],
-                                            "image": "bar-joselu_495710.jpg"
+                                            "image": "bar-joselu_495710.jpg",
+                                            "lat": 12.000,
+                                            "lng": 12.000,
                                         }
                                     }
                                     """))}
@@ -264,7 +272,9 @@ public class BarController {
                                             },
                                             "addres": "C/San Jacinto, 49",
                                             "comments": [],
-                                            "image": "paloma-negra.jpg"
+                                            "image": "paloma-negra.jpg",
+                                            "lat": 12.000,
+                                            "lng": 12.000,
                                     }
                                     """))}
             ),
@@ -341,6 +351,28 @@ public class BarController {
         return ResponseEntity.noContent().build();
     }
 
+
+
+    @PostMapping("/bar/favourites/add/{id}")
+    public ResponseEntity<?> addToFavourites(@AuthenticationPrincipal User logged, @PathVariable UUID barId) {
+        service.addToFavourites(logged, barId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/bar/favourites/delete/{id}")
+    public ResponseEntity<?> deleteFromFavourites(@AuthenticationPrincipal User logged, @PathVariable UUID barId) {
+        service.deleteFromFavourites(logged, barId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/bar/favourites/find/{id}")
+    public FavouriteDto isFavourite(@PathVariable UUID id, @AuthenticationPrincipal User logged){
+        FavouriteDto fav =
+                FavouriteDto.builder()
+                        . favorito(service.isFavourite(id,logged))
+                        .build();
+        return fav;
+    }
 
 }
 

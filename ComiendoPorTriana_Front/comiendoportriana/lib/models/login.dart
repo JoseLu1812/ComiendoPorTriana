@@ -30,7 +30,7 @@ class LoginResponse {
     if (json['favList'] != null) {
       favList = <BarContent>[];
       json['favList'].forEach((v) {
-        favList!.add(new BarContent.fromJson(v));
+        favList!.add(BarContent.fromJson(v));
       });
     }
     //if (json['comments'] != null) {
@@ -48,13 +48,13 @@ class LoginResponse {
     data['username'] = username;
     data['fullName'] = fullName;
     data['email'] = email;
-    if (this.favList != null) {
-      data['favList'] = this.favList!.map((v) => v.toJson()).toList();
+    if (favList != null) {
+      data['favList'] = favList!.map((v) => v.toJson()).toList();
     }
     //if (this.comments != null) {
     //  data['comments'] = this.comments!.map((v) => v.toJson()).toList();
     //}
-    data['createdAt'] = this.createdAt;
+    data['createdAt'] = createdAt;
     data['token'] = token;
     data['refreshToken'] = refreshToken;
     return data;

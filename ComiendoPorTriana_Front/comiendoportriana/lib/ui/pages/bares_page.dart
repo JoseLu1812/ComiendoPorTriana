@@ -1,12 +1,9 @@
 import 'package:comiendoportriana/blocs/bar/bar.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
-import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
 import 'package:comiendoportriana/models/models.dart';
-import 'package:comiendoportriana/repositories/repositories.dart';
-import 'package:comiendoportriana/services/authentication_service.dart';
-import 'package:comiendoportriana/services/localstorage_service.dart';
 import 'package:comiendoportriana/ui/pages/bar_detail_page.dart';
+import 'package:comiendoportriana/ui/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,13 +34,10 @@ class BaresBody extends StatefulWidget {
 class _BaresBodyState extends State<BaresBody> {
   final _scrollController = ScrollController();
 
-  bool _isFavorited = true;
-
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _isFavorited;
   }
 
   @override
@@ -103,22 +97,13 @@ class _BaresBodyState extends State<BaresBody> {
                   imgBase + bar.image!,
                   fit: BoxFit.cover,
                 )),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
-                  child: Text(
-                    bar.name!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
-                  child: FavoriteWidget(),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+              child: Text(
+                bar.name!,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(4.0, 0.0, 10.0, 0.0),
@@ -150,7 +135,7 @@ class _BaresBodyState extends State<BaresBody> {
                     Expanded(
                       flex: 1,
                       child: TextButton.icon(
-                        icon: const Icon(Icons.remove_red_eye_outlined) ,
+                        icon: const Icon(Icons.remove_red_eye_outlined),
                         onPressed: () => {
                           Navigator.push(
                             context,
@@ -166,9 +151,15 @@ class _BaresBodyState extends State<BaresBody> {
                     Expanded(
                       flex: 1,
                       child: TextButton.icon(
-                        onPressed: () => {},
-                        icon: const Icon(Icons.table_restaurant_outlined),
-                        label: const Text("Reservar"),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MapPage(lat: bar.lat, lng: bar.lng)))
+                        },
+                        icon: const Icon(Icons.map_outlined),
+                        label: const Text("Mapa"),
                       ),
                     ),
                   ],
@@ -199,6 +190,11 @@ class _BaresBodyState extends State<BaresBody> {
   }
 }
 
+void pushToBarDetails(String id){
+
+}
+
+
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});
 
@@ -215,56 +211,3 @@ class BottomLoader extends StatelessWidget {
     ));
   }
 }
-
-class FavoriteWidget extends StatefulWidget {
-  const FavoriteWidget({super.key});
-
-  @override
-  _FavoriteWidgetState createState() => _FavoriteWidgetState();
-}
-
-class _FavoriteWidgetState extends State<FavoriteWidget> {
-  bool _isFavorited = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(0),
-          child: IconButton(
-            icon: (_isFavorited
-                ? const Icon(Icons.favorite)
-                : const Icon(Icons.favorite_border)),
-            color: Colors.red.shade800,
-            onPressed: _toggleFavorite,
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _toggleFavorite() {
-    setState(() {
-      if (_isFavorited) {
-        _isFavorited = false;
-
-      } else {
-        _isFavorited = true;
-      }
-    });
-  }
-}
-
-
-/* Padding(
-padding: const EdgeInsets.all(0),
-child: IconButton(
-  icon: (_isFavorited
-      ? Icon(Icons.star)
-      : Icon(Icons.star_border)),
-  color: Colors.red[500],
-  onPressed: _toggleFavorite(bar),
-),
-),*/

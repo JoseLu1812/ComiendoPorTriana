@@ -26,37 +26,37 @@ class BarList {
       int? numberOfElements,
       bool? empty}) {
     if (content != null) {
-      this._content = content;
+      _content = content;
     }
     if (pageable != null) {
-      this._pageable = pageable;
+      _pageable = pageable;
     }
     if (last != null) {
-      this._last = last;
+      _last = last;
     }
     if (totalPages != null) {
-      this._totalPages = totalPages;
+      _totalPages = totalPages;
     }
     if (totalElements != null) {
-      this._totalElements = totalElements;
+      _totalElements = totalElements;
     }
     if (size != null) {
-      this._size = size;
+      _size = size;
     }
     if (number != null) {
-      this._number = number;
+      _number = number;
     }
     if (sort != null) {
-      this._sort = sort;
+      _sort = sort;
     }
     if (first != null) {
-      this._first = first;
+      _first = first;
     }
     if (numberOfElements != null) {
-      this._numberOfElements = numberOfElements;
+      _numberOfElements = numberOfElements;
     }
     if (empty != null) {
-      this._empty = empty;
+      _empty = empty;
     }
   }
 
@@ -88,42 +88,42 @@ class BarList {
     if (json['content'] != null) {
       _content = <BarContent>[];
       json['content'].forEach((v) {
-        _content!.add(new BarContent.fromJson(v));
+        _content!.add(BarContent.fromJson(v));
       });
     }
     _pageable = json['pageable'] != null
-        ? new Pageable.fromJson(json['pageable'])
+        ? Pageable.fromJson(json['pageable'])
         : null;
     _last = json['last'];
     _totalPages = json['totalPages'];
     _totalElements = json['totalElements'];
     _size = json['size'];
     _number = json['number'];
-    _sort = json['sort'] != null ? new Sort.fromJson(json['sort']) : null;
+    _sort = json['sort'] != null ? Sort.fromJson(json['sort']) : null;
     _first = json['first'];
     _numberOfElements = json['numberOfElements'];
     _empty = json['empty'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this._content != null) {
-      data['content'] = this._content!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (_content != null) {
+      data['content'] = _content!.map((v) => v.toJson()).toList();
     }
-    if (this._pageable != null) {
-      data['pageable'] = this._pageable!.toJson();
+    if (_pageable != null) {
+      data['pageable'] = _pageable!.toJson();
     }
-    data['last'] = this._last;
-    data['totalPages'] = this._totalPages;
-    data['totalElements'] = this._totalElements;
-    data['size'] = this._size;
-    data['number'] = this._number;
-    if (this._sort != null) {
-      data['sort'] = this._sort!.toJson();
+    data['last'] = _last;
+    data['totalPages'] = _totalPages;
+    data['totalElements'] = _totalElements;
+    data['size'] = _size;
+    data['number'] = _number;
+    if (_sort != null) {
+      data['sort'] = _sort!.toJson();
     }
-    data['first'] = this._first;
-    data['numberOfElements'] = this._numberOfElements;
-    data['empty'] = this._empty;
+    data['first'] = _first;
+    data['numberOfElements'] = _numberOfElements;
+    data['empty'] = _empty;
     return data;
   }
 }
@@ -136,6 +136,8 @@ class BarContent {
   String? _address;
   List<Comment>? _comments;
   String? _image;
+  double? _lat;
+  double? _lng;
 
   BarContent(
   {   String? id,  
@@ -144,24 +146,32 @@ class BarContent {
       Owner? owner,
       String? address,
       List<Comment>? comments,
-      String? image}) {
+      String? image,
+      double? lat,
+      double? lng}) {
     if (name != null) {
-      this._name = name;
+      _name = name;
     }
     if (description != null) {
-      this._description = description;
+      _description = description;
     }
     if (owner != null) {
-      this._owner = owner;
+      _owner = owner;
     }
     if (address != null) {
-      this._address = address;
+      _address = address;
     }
     if (comments != null) {
-      this._comments = comments;
+      _comments = comments;
     }
     if (image != null) {
-      this._image = image;
+      _image = image;
+    }
+    if (lat != null) {
+      this._lat = lat;
+    }
+    if (lng != null) {
+      this._lng = lng;
     }
   }
 
@@ -179,26 +189,34 @@ class BarContent {
   set comments(List<Comment>? comments) => _comments = comments;
   String? get image => _image;
   set image(String? image) => _image = image;
+  double? get lat => _lat;
+  set lat(double? lat) => _lat = lat;
+  double? get lng => _lng;
+  set lng(double? lng) => _lng = lng;
 
   BarContent.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
     _description = json['description'];
-    _owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
+    _owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
     _address = json['address'];
     _image = json['image'];
+    _lat = json['lat'];
+    _lng = json['lng'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['name'] = this._name;
-    data['description'] = this._description;
-    if (this._owner != null) {
-      data['owner'] = this._owner!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['name'] = _name;
+    data['description'] = _description;
+    if (_owner != null) {
+      data['owner'] = _owner!.toJson();
     }
-    data['address'] = this._address;
-    data['image'] = this._image;
+    data['address'] = _address;
+    data['image'] = _image;
+    data['lat'] = _lat;
+    data['lng'] = _lng;
     return data;
   }
 }
@@ -209,7 +227,7 @@ class Owner {
   String? _password;
   String? _email;
   String? _fullName;
-  List<Null>? _favList;
+  List<BarContent>? _favList;
   bool? _accountNonExpired;
   bool? _accountNonLocked;
   bool? _credentialsNonExpired;
@@ -225,7 +243,7 @@ class Owner {
       String? password,
       String? email,
       String? fullName,
-      List<Null>? favList,
+      List<BarContent>? favList,
       bool? accountNonExpired,
       bool? accountNonLocked,
       bool? credentialsNonExpired,
@@ -235,46 +253,46 @@ class Owner {
       String? lastPasswordChangeAt,
       List<Authorities>? authorities}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (username != null) {
-      this._username = username;
+      _username = username;
     }
     if (password != null) {
-      this._password = password;
+      _password = password;
     }
     if (email != null) {
-      this._email = email;
+      _email = email;
     }
     if (fullName != null) {
-      this._fullName = fullName;
+      _fullName = fullName;
     }
     if (favList != null) {
-      this._favList = favList;
+      _favList = favList;
     }
     if (accountNonExpired != null) {
-      this._accountNonExpired = accountNonExpired;
+      _accountNonExpired = accountNonExpired;
     }
     if (accountNonLocked != null) {
-      this._accountNonLocked = accountNonLocked;
+      _accountNonLocked = accountNonLocked;
     }
     if (credentialsNonExpired != null) {
-      this._credentialsNonExpired = credentialsNonExpired;
+      _credentialsNonExpired = credentialsNonExpired;
     }
     if (enabled != null) {
-      this._enabled = enabled;
+      _enabled = enabled;
     }
     if (roles != null) {
-      this._roles = roles;
+      _roles = roles;
     }
     if (createdAt != null) {
-      this._createdAt = createdAt;
+      _createdAt = createdAt;
     }
     if (lastPasswordChangeAt != null) {
-      this._lastPasswordChangeAt = lastPasswordChangeAt;
+      _lastPasswordChangeAt = lastPasswordChangeAt;
     }
     if (authorities != null) {
-      this._authorities = authorities;
+      _authorities = authorities;
     }
   }
 
@@ -288,8 +306,8 @@ class Owner {
   set email(String? email) => _email = email;
   String? get fullName => _fullName;
   set fullName(String? fullName) => _fullName = fullName;
-  List<Null>? get favList => _favList;
-  set favList(List<Null>? favList) => _favList = favList;
+  List<BarContent>? get favList => _favList;
+  set favList(List<BarContent>? favList) => _favList = favList;
   bool? get accountNonExpired => _accountNonExpired;
   set accountNonExpired(bool? accountNonExpired) =>
       _accountNonExpired = accountNonExpired;
@@ -327,27 +345,27 @@ class Owner {
     if (json['authorities'] != null) {
       _authorities = <Authorities>[];
       json['authorities'].forEach((v) {
-        _authorities!.add(new Authorities.fromJson(v));
+        _authorities!.add(Authorities.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['username'] = this._username;
-    data['password'] = this._password;
-    data['email'] = this._email;
-    data['fullName'] = this._fullName;
-    data['accountNonExpired'] = this._accountNonExpired;
-    data['accountNonLocked'] = this._accountNonLocked;
-    data['credentialsNonExpired'] = this._credentialsNonExpired;
-    data['enabled'] = this._enabled;
-    data['roles'] = this._roles;
-    data['createdAt'] = this._createdAt;
-    data['lastPasswordChangeAt'] = this._lastPasswordChangeAt;
-    if (this._authorities != null) {
-      data['authorities'] = this._authorities!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['username'] = _username;
+    data['password'] = _password;
+    data['email'] = _email;
+    data['fullName'] = _fullName;
+    data['accountNonExpired'] = _accountNonExpired;
+    data['accountNonLocked'] = _accountNonLocked;
+    data['credentialsNonExpired'] = _credentialsNonExpired;
+    data['enabled'] = _enabled;
+    data['roles'] = _roles;
+    data['createdAt'] = _createdAt;
+    data['lastPasswordChangeAt'] = _lastPasswordChangeAt;
+    if (_authorities != null) {
+      data['authorities'] = _authorities!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -358,7 +376,7 @@ class Authorities {
 
   Authorities({String? authority}) {
     if (authority != null) {
-      this._authority = authority;
+      _authority = authority;
     }
   }
 
@@ -370,8 +388,8 @@ class Authorities {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['authority'] = this._authority;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['authority'] = _authority;
     return data;
   }
 }
@@ -392,22 +410,22 @@ class Pageable {
       bool? unpaged,
       bool? paged}) {
     if (sort != null) {
-      this._sort = sort;
+      _sort = sort;
     }
     if (offset != null) {
-      this._offset = offset;
+      _offset = offset;
     }
     if (pageNumber != null) {
-      this._pageNumber = pageNumber;
+      _pageNumber = pageNumber;
     }
     if (pageSize != null) {
-      this._pageSize = pageSize;
+      _pageSize = pageSize;
     }
     if (unpaged != null) {
-      this._unpaged = unpaged;
+      _unpaged = unpaged;
     }
     if (paged != null) {
-      this._paged = paged;
+      _paged = paged;
     }
   }
 
@@ -425,7 +443,7 @@ class Pageable {
   set paged(bool? paged) => _paged = paged;
 
   Pageable.fromJson(Map<String, dynamic> json) {
-    _sort = json['sort'] != null ? new Sort.fromJson(json['sort']) : null;
+    _sort = json['sort'] != null ? Sort.fromJson(json['sort']) : null;
     _offset = json['offset'];
     _pageNumber = json['pageNumber'];
     _pageSize = json['pageSize'];
@@ -434,15 +452,15 @@ class Pageable {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this._sort != null) {
-      data['sort'] = this._sort!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (_sort != null) {
+      data['sort'] = _sort!.toJson();
     }
-    data['offset'] = this._offset;
-    data['pageNumber'] = this._pageNumber;
-    data['pageSize'] = this._pageSize;
-    data['unpaged'] = this._unpaged;
-    data['paged'] = this._paged;
+    data['offset'] = _offset;
+    data['pageNumber'] = _pageNumber;
+    data['pageSize'] = _pageSize;
+    data['unpaged'] = _unpaged;
+    data['paged'] = _paged;
     return data;
   }
 }
@@ -454,13 +472,13 @@ class Sort {
 
   Sort({bool? empty, bool? sorted, bool? unsorted}) {
     if (empty != null) {
-      this._empty = empty;
+      _empty = empty;
     }
     if (sorted != null) {
-      this._sorted = sorted;
+      _sorted = sorted;
     }
     if (unsorted != null) {
-      this._unsorted = unsorted;
+      _unsorted = unsorted;
     }
   }
 
@@ -478,10 +496,10 @@ class Sort {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['empty'] = this._empty;
-    data['sorted'] = this._sorted;
-    data['unsorted'] = this._unsorted;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['empty'] = _empty;
+    data['sorted'] = _sorted;
+    data['unsorted'] = _unsorted;
     return data;
   }
 }

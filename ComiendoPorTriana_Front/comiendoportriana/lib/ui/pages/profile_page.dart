@@ -66,7 +66,7 @@ class _ProfileUIState extends State<ProfileUI> {
                     const TextStyle(fontWeight: FontWeight.w800, fontSize: 50),
               ),
               Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,15 +74,15 @@ class _ProfileUIState extends State<ProfileUI> {
                     children: <Widget>[
                       const Text(
                         'Nombre Completo:',
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 14),
                       ),
                       Text(' ${user.fullName}',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15)),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
                     ],
                   )),
               Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,15 +90,15 @@ class _ProfileUIState extends State<ProfileUI> {
                     children: <Widget>[
                       const Text(
                         'Email:',
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 14),
                       ),
                       Text(' ${user.email}',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15)),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
                     ],
                   )),
               Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,11 +106,11 @@ class _ProfileUIState extends State<ProfileUI> {
                     children: <Widget>[
                       const Text(
                         'Fecha de creación:',
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 14),
                       ),
                       Text('${user.createdAt}',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15)),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
                     ],
                   )),
               Container(

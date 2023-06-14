@@ -1,6 +1,7 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;

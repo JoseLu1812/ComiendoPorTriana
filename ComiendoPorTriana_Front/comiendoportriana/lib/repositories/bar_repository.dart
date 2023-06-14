@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/models/favourite_dto.dart';
 import 'package:comiendoportriana/rest/rest.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:convert';
@@ -27,5 +30,23 @@ class BarRepository {
     String url = '$urlBase/$barId';
     var response = await _rest.get(url);
     return BarContent.fromJson(jsonDecode(response));
+  }
+
+  Future<void> addToFavourites(String id) async {
+    String url = '$urlBase/favourites/add/$id';
+    var response = await _rest.post(url, id);
+    return response;
+  }
+
+  Future<void> deleteFromFavourites(String id) async {
+    String url = '$urlBase/favourites/delete/$id';
+    var response = await _rest.delete(url, id);
+    return response;
+  }
+
+  Future<FavouriteResponse> isFavourite(String id) async {
+    String url = '$urlBase/favourites/find/$id';
+    var response = await _rest.get(url);
+    return FavouriteResponse.fromJson(jsonDecode(response));
   }
 }

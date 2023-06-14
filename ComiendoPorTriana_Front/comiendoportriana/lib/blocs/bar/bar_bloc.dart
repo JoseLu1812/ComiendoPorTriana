@@ -13,7 +13,6 @@ part 'bar_event.dart';
 part 'bar_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
-const _postLimit = 8;
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
@@ -24,7 +23,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 class BarBloc extends Bloc<BarEvent, BarState> {
   late final BarService _barService;
 
-  BarBloc() : super(BarState()) {
+  BarBloc() : super(const BarState()) {
     _barService = getIt<BarService>();
 
     on<BarFetched>(
@@ -62,21 +61,4 @@ class BarBloc extends Bloc<BarEvent, BarState> {
       emit(state.copyWith(status: BarStatus.failure));
     }
   }
-
-  /*Future<List<BarContent>> _fetchBares([int page = 0]) async {
-    final bares = _barService.getListaBares(page);
-    final body = jsonDecode(bares)as List;
-    return bares.map((dynamic json) {
-      final map = json as Map<String, dynamic>;
-      return BarContent(
-        id: map['id'] as String,
-        name: map['name'] as String,
-        description: map['description'] as String,
-        address: map['address'] as String,
-        image: map['image'] as String,
-        comments: map['comments'] as List<Comment>,
-        owner: map['owner'] as Owner
-      );
-    }).toList();
-  }*/
 }
