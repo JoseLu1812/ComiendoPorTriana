@@ -36,6 +36,10 @@ public class Bar {
 
     private String image;
 
+    private double lat;
+
+    private double lng;
+
     @Builder.Default
     @OneToMany(mappedBy = "bar")
     private List<Comment> comments = new ArrayList<Comment>();

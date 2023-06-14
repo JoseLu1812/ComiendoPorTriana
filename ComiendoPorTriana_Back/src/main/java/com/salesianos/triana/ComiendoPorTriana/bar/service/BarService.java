@@ -95,6 +95,8 @@ public class BarService {
                     b.setDescription(dto.getDescription());
                     b.setAddress(dto.getAddress());
                     b.setImage(image);
+                    b.setLat(dto.getLat());
+                    b.setLng(dto.getLng());
                     return repo.save(b);
                 })
                 .orElseThrow(() -> new BarNotFoundException("El Bar no existe"));
@@ -201,6 +203,21 @@ public class BarService {
 
         logged.setFavList(favourites);
         userRepository.save(logged);
+    }
+
+
+    public boolean isFavourite(UUID id, User logged){
+        Optional<Bar> opt = repo.findById(id);
+        if(opt.isEmpty()){
+            throw new BarNotFoundException("Bar no encontrado por id");
+        } else {
+            List<Bar> favlist = logged.getFavList();
+            if (favlist.contains(id)){
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
 
 

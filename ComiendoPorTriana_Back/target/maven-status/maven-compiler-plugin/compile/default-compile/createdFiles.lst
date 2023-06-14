@@ -1,3 +1,4 @@
+com\salesianos\triana\ComiendoPorTriana\bar\model\dto\FavouriteDto$FavouriteDtoBuilder.class
 com\salesianos\triana\ComiendoPorTriana\files\utils\MediaTypeUrlResource.class
 com\salesianos\triana\ComiendoPorTriana\comment\dto\CommentRequestDto$CommentRequestDtoBuilder.class
 com\salesianos\triana\ComiendoPorTriana\user\model\dto\JwtUserResponse$JwtUserResponseBuilderImpl.class
@@ -37,6 +38,7 @@ com\salesianos\triana\ComiendoPorTriana\search\spec\GenericSpecificationBuilder.
 com\salesianos\triana\ComiendoPorTriana\security\jwt\JwtAuthenticationFilter.class
 com\salesianos\triana\ComiendoPorTriana\comment\Comment.class
 com\salesianos\triana\ComiendoPorTriana\error\GlobalRestControllerAdvice.class
+com\salesianos\triana\ComiendoPorTriana\bar\model\dto\FavouriteDto.class
 com\salesianos\triana\ComiendoPorTriana\security\SecurityConfig.class
 com\salesianos\triana\ComiendoPorTriana\bar\model\dto\CreateBarDto.class
 com\salesianos\triana\ComiendoPorTriana\security\errorhandling\JwtAuthenticationEntryPoint.class
