@@ -4,8 +4,11 @@ import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/services/services.dart';
 import 'package:comiendoportriana/ui/pages/pages.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+
+void main() async {
+  GetStorage.init();
   //WidgetsFlutterBinding.ensureInitialized();
   //await SharedPreferences.getInstance();
   setupAsyncDependencies();
@@ -35,12 +38,12 @@ class MyApp extends StatelessWidget {
     print("Enrutando al login");
     return MaterialPageRoute<void>(builder: (context) {
       var authBloc = BlocProvider.of<AuthenticationBloc>(context);
-      authBloc..add(SessionExpiredEvent());
+      authBloc.add(SessionExpiredEvent());
       return _instance;
     });
   }
 
-  MyApp() {
+  MyApp({super.key}) {
     _instance = this;
   }
 

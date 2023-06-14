@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:comiendoportriana/blocs/authentication/authentication.dart';
 import 'package:comiendoportriana/blocs/favourites/favourites_event.dart';
 import 'package:comiendoportriana/blocs/favourites/favourites_state.dart';
 import 'package:comiendoportriana/services/services.dart';
 
+
 class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
   late final BarService _barService;
 
-  FavouritesBloc(AuthenticationBloc authenticationBloc,
-      AuthenticationService authenticationService, BarService barService)
+  FavouritesBloc(BarService barService)
       : super(const FavouritesInitial()) {
     on<FavouritesEvent>((event, emit) {});
     on<AddToFavourites>(_AddToFavourites);

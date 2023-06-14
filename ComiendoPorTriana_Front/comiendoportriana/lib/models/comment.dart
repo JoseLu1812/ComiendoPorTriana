@@ -14,11 +14,11 @@ class Comment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['barName'] = this.barName;
-    data['title'] = this.title;
-    data['body'] = this.body;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['barName'] = barName;
+    data['title'] = title;
+    data['body'] = body;
     return data;
   }
 }

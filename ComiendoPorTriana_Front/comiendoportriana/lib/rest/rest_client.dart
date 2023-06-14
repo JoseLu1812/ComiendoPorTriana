@@ -43,7 +43,7 @@ class RestClient {
   }
 
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {
-    if (interceptors.where((element) => element is HeadersApiInterceptor).isEmpty) interceptors..add(HeadersApiInterceptor());
+    if (interceptors.where((element) => element is HeadersApiInterceptor).isEmpty) interceptors.add(HeadersApiInterceptor());
     _httpClient = InterceptedClient.build(interceptors: interceptors);
   }
 
@@ -63,7 +63,7 @@ class RestClient {
       try {
         Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
-        Map<String, String> headers = Map();
+        Map<String, String> headers = {};
         headers.addAll({"Content-Type": 'application/json'});
         final response = await _httpClient.post(uri, body: jsonEncode(body), headers: headers);
         var responseJson = _response(response);
@@ -77,7 +77,7 @@ class RestClient {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
-      Map<String, String> headers = Map();
+      Map<String, String> headers = {};
       headers.addAll({"Content-Type": 'application/json'});
 
       final response =
@@ -94,7 +94,7 @@ class RestClient {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
-      Map<String, String> headers = Map();
+      Map<String, String> headers = {};
       headers.addAll({"Content-Type": 'application/json'});
 
       final response =
