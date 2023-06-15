@@ -4,10 +4,8 @@ import 'login_event.dart';
 import 'login_state.dart';
 import '../authentication/authentication.dart';
 import '../../services/services.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final box = GetStorage();
   final AuthenticationBloc _authenticationBloc;
   final AuthenticationService _authenticationService;
 
@@ -30,7 +28,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user = await _authenticationService.signInWithUsernameAndPassword(
           event.username, event.password);
       if (user != null) {
-        box.write('favList', user.favList);
         _authenticationBloc.add(UserLoggedIn(user: user));
         emit(LoginSuccess());
         emit(LoginInitial());
