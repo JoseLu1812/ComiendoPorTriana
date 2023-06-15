@@ -1,0 +1,595 @@
+{
+	"info": {
+		"_postman_id": "06962a4e-a5a9-4a08-b074-a0aad847926c",
+		"name": "ComiendoPorTriana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23783730"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"JoseluHN\",\r\n    \"password\": \"Usuario_123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}auth/login",
+							"host": [
+								"{{API_BASE_URL}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}admin/users",
+							"host": [
+								"{{API_BASE_URL}}admin"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authoritation",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"email\": \"enrique@gmail.com\",\r\n        \"username\": \"LilKoala\",\r\n        \"password\": \"Losolmos_58\",\r\n        \"verifyPassword\": \"Losolmos_58\",\r\n        \"fullName\": \"Enrique Hidalgo Navas\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}auth/register/user",
+							"host": [
+								"{{API_BASE_URL}}auth"
+							],
+							"path": [
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Barman",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authoritation",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"email\": \"mama@gmail.com\",\r\n        \"username\": \"LaMadre1\",\r\n        \"password\": \"Losolmos_58\",\r\n        \"verifyPassword\": \"Losolmos_58\",\r\n        \"fullName\": \"María del Pilar Navas Tenor\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}auth/register/user",
+							"host": [
+								"{{API_BASE_URL}}auth"
+							],
+							"path": [
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authoritation",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"email\": \"joseluishh@gmail.com\",\r\n        \"username\": \"ElPadre\",\r\n        \"password\": \"Losolmos_58\",\r\n        \"verifyPassword\": \"Losolmos_58\",\r\n        \"fullName\": \"José Luis Hidalgo Herrera\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}auth/register/user",
+							"host": [
+								"{{API_BASE_URL}}auth"
+							],
+							"path": [
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bar",
+			"item": [
+				{
+					"name": "Get Bares",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}bar?page=1",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bar Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/c2dde920-80df-4743-86d4-3545269edcb7",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"c2dde920-80df-4743-86d4-3545269edcb7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": [
+										"/C:/Users/josel/Pictures/img/espana (1).jpg",
+										"/C:/Users/josel/Pictures/img/espana (2).jpg",
+										"/C:/Users/josel/Pictures/img/espana (3).jpg"
+									]
+								},
+								{
+									"key": "dto",
+									"value": "{\n    \"name\": \"Bar Joselu\",\n    \"description\": \"Bar creado por mi, solo para mi, donde se come de mi...miercoles a domingo.\",\n    \"address\": \"C/La Tierra, 1\",\n\"images\": \"images\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Bar",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									},
+									{
+										"key": "file",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bar Joselu\",\r\n    \"description\": \"Bar creado por mi, solo para mi, donde se come de mi...miercoles a domingo.\",\r\n    \"owner\": \"53395e14-60d3-46d8-804f-fafd86c72a19\",\r\n    \"direction\": \"C/La Tierra, 1\",\r\n    \"images\": \"images\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_BASE_URL}}bar/",
+									"host": [
+										"{{API_BASE_URL}}bar"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Edit Bar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Admin/Desktop/ComiendoPorTriana_Back/images/paloma-negra.jpg"
+								},
+								{
+									"key": "dto",
+									"value": "{\n    \"name\": \"Negra Paloma\",\n    \"description\": \"Ahora la paloma es negra.\",\n    \"direction\": \"C/San Jacinto, 49\"}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/3bb95209-da68-4f55-9eed-ba0001a1ad3c",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"3bb95209-da68-4f55-9eed-ba0001a1ad3c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/53395e14-60d3-46d8-804f-fafd86c72a19",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"53395e14-60d3-46d8-804f-fafd86c72a19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}downloads/",
+							"host": [
+								"{{API_BASE_URL}}downloads"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}download/victoria.jpg",
+							"host": [
+								"{{API_BASE_URL}}download"
+							],
+							"path": [
+								"victoria.jpg"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"jaja\",\r\n    \"body\": \"avnioavb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/c2dde920-80df-4743-86d4-3545269edcb7/comment",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"c2dde920-80df-4743-86d4-3545269edcb7",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer {{token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/c2dde920-80df-4743-86d4-3545269edcb7/comment",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"c2dde920-80df-4743-86d4-3545269edcb7",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Casi casi\",\r\n    \"body\": \"Siempre operativa que nunca falte\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/c2dde920-80df-4743-86d4-3545269edcb7/comment",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"c2dde920-80df-4743-86d4-3545269edcb7",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}bar/c2dde920-80df-4743-86d4-3545269edcb7/comment",
+							"host": [
+								"{{API_BASE_URL}}bar"
+							],
+							"path": [
+								"c2dde920-80df-4743-86d4-3545269edcb7",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
