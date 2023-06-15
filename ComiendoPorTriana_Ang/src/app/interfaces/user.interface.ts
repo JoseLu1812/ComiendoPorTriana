@@ -1,6 +1,6 @@
 import { Bar } from "./bares.interface";
 
-export type UseList = User[];
+export type UserList = User[];
 
 export interface User {
   id: string;

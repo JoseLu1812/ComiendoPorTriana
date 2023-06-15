@@ -85,7 +85,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/comment/**").hasAnyRole("ADMIN", "BARMAN")
                 .antMatchers("/admin/register/admin").hasRole("ADMIN")
                 .antMatchers("/admin/users").hasRole("ADMIN")
-                .antMatchers("/admin/users/**").hasRole("ADMIN")
                 .antMatchers("/me/**").authenticated()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll();

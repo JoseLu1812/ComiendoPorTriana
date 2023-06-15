@@ -37,6 +37,7 @@ com\salesianos\triana\ComiendoPorTriana\comment\dto\CommentResponseDto.class
 com\salesianos\triana\ComiendoPorTriana\search\spec\GenericSpecificationBuilder.class
 com\salesianos\triana\ComiendoPorTriana\security\jwt\JwtAuthenticationFilter.class
 com\salesianos\triana\ComiendoPorTriana\comment\Comment.class
+com\salesianos\triana\ComiendoPorTriana\ComiendoPorTrianaApplication$1.class
 com\salesianos\triana\ComiendoPorTriana\error\GlobalRestControllerAdvice.class
 com\salesianos\triana\ComiendoPorTriana\bar\model\dto\FavouriteDto.class
 com\salesianos\triana\ComiendoPorTriana\security\SecurityConfig.class

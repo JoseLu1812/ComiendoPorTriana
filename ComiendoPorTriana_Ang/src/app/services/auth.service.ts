@@ -50,4 +50,8 @@ export class AuthService {
       request
     );
   }
+
+  logOut() {
+    localStorage.removeItem('bearerToken');
+  }
 }

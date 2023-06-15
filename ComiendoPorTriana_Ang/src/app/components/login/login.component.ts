@@ -21,6 +21,7 @@ export class LoginComponent{
     this.request.username = this.username;
     this.request.password = this.password;
     this.authService.login(this.request);
+    
   }
 
 

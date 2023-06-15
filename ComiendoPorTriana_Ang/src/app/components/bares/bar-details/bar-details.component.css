@@ -1,0 +1,104 @@
+/* Header */
+@font-face {
+  font-family: 'KeepCalm';
+  src: url('../../../../assets/fonts/KeepCalm-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Louis';
+  src: url('../../../../assets/fonts/louis_cafe.ttf');
+}
+
+mat-toolbar {
+  background-color: #9C240A;
+  font-family: 'KeepCalm', sans-serif;
+  color: white;
+}
+
+.icon-color{
+  color: #9C240A;
+  height: 20px;
+}
+
+.botones-menu {
+  color: #9C240A;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+
+#titulo{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.logo{
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(125deg) brightness(102%) contrast(102%);
+}
+
+a{
+  text-decoration:none;
+  color: white;
+}
+
+/* Body */
+
+.details-container {
+  width: 90%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.encabezado{
+  padding: 30px;
+}
+
+.nombre{
+  text-align: center;
+  padding: 20px;
+  font-size: 50px;
+  font-family: 'KeepCalm', sans-serif;
+}
+
+.imagen{
+  padding: 20px;
+  width: 60%;
+}
+
+.imagen img{
+  border: #9C240A;
+  border-style: double;
+  border-width: 5px;
+  border-radius: 8px;
+}
+
+.tabla{
+  width: 50%;
+}
+
+tr{
+  text-align: left;
+  padding: 35px
+}
+
+th{
+  font-family: 'KeepCalm', sans-serif;
+  font-style: italic;
+  color: #9C240A;
+}
+
+td{
+  padding: 10px;
+  font-family: 'Louis', sans-serif;
+  word-spacing: 0.10em;
+  line-height: 35px;
+}
+
+

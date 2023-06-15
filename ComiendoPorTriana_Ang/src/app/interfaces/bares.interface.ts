@@ -20,6 +20,8 @@ export interface Bar {
   address: string;
   comments: Comment[];
   image: string;
+  lat: number;
+  lng: number;
 }
 
 export interface Owner {

@@ -1,5 +1,5 @@
 <body>
-  <header>
+    <header>
     <mat-toolbar>
       <span class="fill-remaining-space">
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
@@ -15,15 +15,15 @@
               </span>
             </button>
 
-            <button mat-menu-item>
+            <button mat-menu-item class="botones-menu" [routerLink]="['/users']">
               <span class="material-symbols-outlined botones-menu">
-                <mat-icon class="icon-color">table_restaurant</mat-icon>
-                <span>Reservas</span>
+                <mat-icon class="icon-color">group</mat-icon>
+                <span>Usuarios</span>
               </span>
 
             </button>
 
-            <button mat-menu-item>
+            <button mat-menu-item class="botones-menu" (click)="logOut()">
               <span class="material-symbols-outlined botones-menu">
                 <mat-icon class="icon-color">logout</mat-icon>
                 <span>Cerrar Sesión</span>
@@ -45,28 +45,42 @@
     </mat-toolbar>
   </header>
 
-  <!--<div class="view-container">
-    <div fxLayout="row wrap" fxLayoutAlign="sapce-around center">
-      <div class="category">
-        <div class="card">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <mat-card-title>Restaurantes</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+  <div>
+    <div class="encabezado">
+      <div class="nombre">
+        <span>{{bar!.name}}</span>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" class="details-container">
+      <div class="imagen">
+        <img [src]="getBarImage(bar!.image)" alt="Imagen del Bar">
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start" class="tabla">
+        <div>
+          <br>
+          <table style="font-size: 20pt; align-items: flex-start;">
+            <tbody>
+              <tr>
+                <th>Address:</th>
+                <td></td>
+                <td>{{bar!.address}}</td>
+              </tr>
 
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button routerLink="">
-                VER MÁS
-              </button>
-            </mat-card-actions>
-          </mat-card>
+              <tr>
+                <th>Description:</th>
+                <td></td>
+                <td>{{bar!.description}}</td>
+              </tr>
+
+              <tr>
+                <th>Dueño:</th>
+                <td></td>
+                <td>{{bar!.owner.fullName}}</td>
+              </tr>
+          </table>
         </div>
       </div>
     </div>
-
-  </div>-->
-
+  </div>
 
 </body>
