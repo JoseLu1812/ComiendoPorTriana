@@ -4,11 +4,9 @@ import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/services/services.dart';
 import 'package:comiendoportriana/ui/pages/pages.dart';
-import 'package:get_storage/get_storage.dart';
 
 
 void main() async {
-  GetStorage.init();
   //WidgetsFlutterBinding.ensureInitialized();
   //await SharedPreferences.getInstance();
   setupAsyncDependencies();
