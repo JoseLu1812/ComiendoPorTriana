@@ -4,6 +4,7 @@
 ApiRest realizada en Spring Boot, cuenta con base de datos en H2 y PostgreSql(se explica en el siguiente apartado). tambien cuenta con documentacion con Swagger-ui. A su vez cuenta con unas versiones de Front desarrollas en FLutter/Dart para la versión Móvil, y con Angular/typeScript para la versión Web.
 
 El tema principal de la App es la gestión de Bares y Restaurantes de Triana.
+![Captura de pantalla 2023-06-14 173357](https://github.com/JoseLu1812/ComiendoPorTriana/assets/93126495/0997f385-4aed-4b3a-a3fa-82a622598b72)
 
 ## Perfiles
 
