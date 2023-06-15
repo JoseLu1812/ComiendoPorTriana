@@ -4,6 +4,8 @@
         android:label="comiendoportriana"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBFWerhJ1PWEg7148XOj4V3KQ1d_0kqh1E"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -31,6 +31,10 @@ public class BarDto {
 
     private String image;
 
+    private double lat;
+
+    private double lng;
+
     public static BarDto of(Bar b) {
         List<CommentResponseDto> comments = new ArrayList<>();
         try{
@@ -46,6 +50,8 @@ public class BarDto {
                 .address(b.getAddress())
                 .comments(comments)
                 .image(b.getImage())
+                .lat(b.getLat())
+                .lng(b.getLng())
                 .build();
     }
 

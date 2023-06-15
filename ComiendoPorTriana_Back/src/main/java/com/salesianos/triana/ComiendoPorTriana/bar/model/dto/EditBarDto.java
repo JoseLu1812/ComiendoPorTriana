@@ -24,6 +24,10 @@ public class EditBarDto {
 
     private String image;
 
+    private double lat;
+
+    private double lng;
+
 
     public static EditBarDto of(Bar b) {
         return EditBarDto.builder()
@@ -31,6 +35,8 @@ public class EditBarDto {
                 .description(b.getDescription())
                 .address(b.getAddress())
                 .image(b.getImage())
+                .lat(b.getLat())
+                .lng(b.getLng())
                 .build();
     }
 

@@ -36,7 +36,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   http: ^0.13.0
   stream_transform: ^2.0.0
-  get_it: ^7.2.0
+  get_it: ^7.6.0
   injectable: ^2.1.0 
   flutter_native_splash: ^2.2.17
   shared_preferences: ^2.0.17
@@ -47,6 +47,7 @@ dependencies:
   image_picker: ^0.8.6+1
   image_cropper: ^3.0.1
   file_picker: ^5.2.5
+  get_storage: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +55,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   go_router: ^7.0.0
   intl: ^0.17.0
+  google_maps_flutter: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +94,10 @@ flutter:
     - family: KeepCalm
       fonts:
         - asset: assets/fonts/KeepCalm-Medium.ttf
+
+    - family: LouisCafe
+      fonts:
+        - asset: assets/fonts/louis_cafe.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

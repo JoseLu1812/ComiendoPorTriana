@@ -1,7 +1,8 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model;
 
 import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
-import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
+import com.salesianos.triana.ComiendoPorTriana.user.model.dto.UserResponse;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -15,6 +16,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/*@NamedEntityGraph(name = "user_entity_graph",
+attributeNodes = {
+        @NamedAttributeNode("favList")
+})*/
 @Entity
 @Table(name="user_entity")
 @NoArgsConstructor
@@ -49,7 +54,7 @@ public class User implements UserDetails {
     private String fullName;
 
     @Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "bar_id",
             foreignKey = @ForeignKey(name="FK_FAVORITOS_BAR")),
             inverseJoinColumns = @JoinColumn(name = "user_id",
@@ -57,10 +62,6 @@ public class User implements UserDetails {
             name = "favoritos"
     )
     private List<Bar> favList = new ArrayList<>();
-
-   /*@Builder.Default
-   @OneToMany(mappedBy = "author")
-    private List<Comment> comments = new ArrayList<>();*/
 
     @Builder.Default
     private boolean accountNonExpired = true;
@@ -118,7 +119,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-    
 
 
 }

@@ -1,0 +1,75 @@
+<body>
+      <header>
+    <mat-toolbar>
+      <span class="fill-remaining-space">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <span (mouseleave)="menuTrigger.closeMenu()">
+
+            <button mat-menu-item class="botones-menu" [routerLink]="['/restaurantes']">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">restaurant</mat-icon>
+                <span>Restaurantes</span>
+              </span>
+            </button>
+
+            <button mat-menu-item class="botones-menu" [routerLink]="['/users']">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">group</mat-icon>
+                <span>Usuarios</span>
+              </span>
+
+            </button>
+
+            <button mat-menu-item class="botones-menu" (click)="logOut()">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">logout</mat-icon>
+                <span>Cerrar Sesión</span>
+              </span>
+
+            </button>
+          </span>
+        </mat-menu>
+      </span>
+
+      <div class="fill-remaining-space">
+        <a routerLink="/initial-page">
+          <div id="titulo">
+            <span><img src="../../../assets/images/logo-title.png" alt="Logo ComiendoPorTriana" height="150px" class="logo"></span>
+            <span>Comiendo Por Triana</span>
+          </div>
+        </a>
+      </div>
+    </mat-toolbar>
+  </header>
+
+  <div>
+    <table mat-table class="mat-elevation-z8 demo-table" *ngFor="let user of userList">
+      <ng-container>
+        <th>Username</th>
+        <td>{{user.username}}</td>
+      </ng-container>
+      <ng-container>
+        <th>Full Name</th>
+        <td>{{user.fullName}}</td>
+      </ng-container>
+      <ng-container>
+        <th>Email</th>
+        <td>{{user.email}}</td>
+      </ng-container>
+      <ng-container>
+        <th>Roles</th>
+        <td>{{user.roles}}</td>
+      </ng-container>
+      <ng-container>
+        <th>Created At</th>
+        <td>{{user.createdAt}}</td>
+      </ng-container>
+    </table>
+  </div>
+  <mat-paginator [length]="resultsLength" [pageSize]="8" [pageSizeOptions]="[6, 8, 12, 24]"></mat-paginator>
+
+
+</body>

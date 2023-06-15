@@ -1,0 +1,86 @@
+<body>
+    <header>
+    <mat-toolbar>
+      <span class="fill-remaining-space">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <span (mouseleave)="menuTrigger.closeMenu()">
+
+            <button mat-menu-item class="botones-menu" [routerLink]="['/restaurantes']">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">restaurant</mat-icon>
+                <span>Restaurantes</span>
+              </span>
+            </button>
+
+            <button mat-menu-item class="botones-menu" [routerLink]="['/users']">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">group</mat-icon>
+                <span>Usuarios</span>
+              </span>
+
+            </button>
+
+            <button mat-menu-item class="botones-menu" (click)="logOut()">
+              <span class="material-symbols-outlined botones-menu">
+                <mat-icon class="icon-color">logout</mat-icon>
+                <span>Cerrar Sesión</span>
+              </span>
+
+            </button>
+          </span>
+        </mat-menu>
+      </span>
+
+      <div class="fill-remaining-space">
+        <a routerLink="/initial-page">
+          <div id="titulo">
+            <span><img src="../../../assets/images/logo-title.png" alt="Logo ComiendoPorTriana" height="150px" class="logo"></span>
+            <span>Comiendo Por Triana</span>
+          </div>
+        </a>
+      </div>
+    </mat-toolbar>
+  </header>
+
+  <div>
+    <div class="encabezado">
+      <div class="nombre">
+        <span>{{bar!.name}}</span>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" class="details-container">
+      <div class="imagen">
+        <img [src]="getBarImage(bar!.image)" alt="Imagen del Bar">
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start" class="tabla">
+        <div>
+          <br>
+          <table style="font-size: 20pt; align-items: flex-start;">
+            <tbody>
+              <tr>
+                <th>Address:</th>
+                <td></td>
+                <td>{{bar!.address}}</td>
+              </tr>
+
+              <tr>
+                <th>Description:</th>
+                <td></td>
+                <td>{{bar!.description}}</td>
+              </tr>
+
+              <tr>
+                <th>Dueño:</th>
+                <td></td>
+                <td>{{bar!.owner.fullName}}</td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

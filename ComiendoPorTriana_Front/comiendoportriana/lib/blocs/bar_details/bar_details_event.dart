@@ -7,7 +7,8 @@ abstract class BarDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// ignore: must_be_immutable
 class LoadBarDetails extends BarDetailsEvent {
-  LoadBarDetails(this.barId);
   String barId;
+  LoadBarDetails(this.barId);
 }

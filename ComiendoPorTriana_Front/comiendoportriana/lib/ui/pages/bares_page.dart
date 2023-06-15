@@ -1,7 +1,9 @@
 import 'package:comiendoportriana/blocs/bar/bar.dart';
 import 'package:comiendoportriana/blocs/blocs.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/models/models.dart';
 import 'package:comiendoportriana/ui/pages/bar_detail_page.dart';
+import 'package:comiendoportriana/ui/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,9 +15,11 @@ class BaresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Title(color: Colors.black, child: const Text('BARES'));
-    return BlocProvider(
-      create: (context) => BarBloc()..add(BarFetched()),
-      child: const BaresBody(),
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => BarBloc()..add(BarFetched()),
+        child: const BaresBody(),
+      ),
     );
   }
 }
@@ -54,17 +58,17 @@ class _BaresBodyState extends State<BaresBody> {
             ],
           ));
         case BarStatus.success:
-          if (state.bar.isEmpty) {
+          if (state.bar!.isEmpty) {
             return const Center(child: Text('No hay restaurantes'));
           }
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return index >= state.bar.length
+              return index >= state.bar!.length
                   ? const BottomLoader()
-                  : _barItem(state.bar[index]);
+                  : _barItem(state.bar![index]);
             },
             itemCount:
-                state.hasReachedMax ? state.bar.length : state.bar.length + 1,
+                state.hasReachedMax ? state.bar!.length : state.bar!.length + 1,
             controller: _scrollController,
           );
         case BarStatus.initial:
@@ -97,8 +101,8 @@ class _BaresBodyState extends State<BaresBody> {
               padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
               child: Text(
                 bar.name!,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Padding(
@@ -106,8 +110,8 @@ class _BaresBodyState extends State<BaresBody> {
               child: Text(
                 bar.address!,
                 style: TextStyle(
-                    fontSize: 9,
-                    fontFamily: 'Couture',
+                    fontSize: 14,
+                    fontFamily: 'LouisCafe',
                     color: Colors.redAccent.shade700),
                 textAlign: TextAlign.end,
               ),
@@ -115,10 +119,10 @@ class _BaresBodyState extends State<BaresBody> {
             Padding(
               padding: const EdgeInsets.fromLTRB(14.0, 6.0, 10.0, 6.0),
               child: Text(
-                bar.description!,
+                bar.description! + '..',
                 style: const TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'Couture',
+                    fontSize: 16.0,
+                    fontFamily: 'LouisCafe',
                     fontWeight: FontWeight.normal),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -130,7 +134,8 @@ class _BaresBodyState extends State<BaresBody> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: TextButton(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.remove_red_eye_outlined),
                         onPressed: () => {
                           Navigator.push(
                             context,
@@ -140,14 +145,21 @@ class _BaresBodyState extends State<BaresBody> {
                           ),
                         },
                         style: const ButtonStyle(alignment: Alignment.center),
-                        child: const Text('Ver Más'),
+                        label: const Text('Ver Más'),
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: TextButton(
-                        child: const Text('Reservar'),
-                        onPressed: () {},
+                      child: TextButton.icon(
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MapPage(lat: bar.lat, lng: bar.lng)))
+                        },
+                        icon: const Icon(Icons.map_outlined),
+                        label: const Text("Mapa"),
                       ),
                     ),
                   ],
@@ -174,9 +186,14 @@ class _BaresBodyState extends State<BaresBody> {
     if (_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 1);
+    return currentScroll >= (maxScroll * 0.9);
   }
 }
+
+void pushToBarDetails(String id){
+
+}
+
 
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});

@@ -1,31 +1,10 @@
 import 'package:comiendoportriana/ui/pages/bares_page.dart';
+import 'package:comiendoportriana/ui/pages/favourites_page.dart';
 import 'package:comiendoportriana/ui/pages/login_page.dart';
 import 'package:comiendoportriana/ui/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comiendoportriana/blocs/authentication/authentication.dart';
-//import 'package:go_router/go_router.dart';
-
-
-/*final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return LoginPage();
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'bares',
-          builder: (BuildContext context, GoRouterState state) {
-            return const BaresPage();
-          },
-        ),
-      ],
-    ),
-  ],
-);*/
-
 
 List<Widget> _widgetOptions = <Widget>[
   BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -37,7 +16,8 @@ List<Widget> _widgetOptions = <Widget>[
     }
     return const Text("Loading");
   }),
-  ProfilePage(),
+  const FavouritesPage(),
+  const ProfilePage(),
 ];
 
 class HomePage extends StatefulWidget {
@@ -80,12 +60,15 @@ class _HomePageState extends State<HomePage> {
             label: 'Restaurantes',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos'
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Perfil',
           ),
         ],
         currentIndex: _selectedIndex,
-        //selectedItemColor: Colors.amber[700],
         onTap: _onItemTapped,
       ),
     );

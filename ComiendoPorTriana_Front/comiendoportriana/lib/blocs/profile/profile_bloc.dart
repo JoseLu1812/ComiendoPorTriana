@@ -21,13 +21,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Future<FutureOr<void>> _onFetchUserEvent(
       FetchUserEvent event, Emitter<ProfileState> emit) async {
-    emit(ProfileState(status: ProfileStatus.initial));
+    emit(const ProfileState(status: ProfileStatus.initial));
     try {
       final user = await _authService.getCurrentUser();
       emit(ProfileState(user: user, status: ProfileStatus.standard));
     } catch (_) {
-      print(_);
-      emit(ProfileState(status: ProfileStatus.failure));
+      emit(const ProfileState(status: ProfileStatus.failure));
     }
   }
 

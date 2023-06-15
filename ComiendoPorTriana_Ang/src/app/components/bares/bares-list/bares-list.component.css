@@ -1,0 +1,129 @@
+
+@font-face {
+  font-family: 'KeepCalm';
+  src: url('../../../../assets/fonts/KeepCalm-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Louis';
+  src: url('../../../../assets/fonts/louis_cafe.ttf');
+}
+
+mat-card:hover{
+  background-color: #e5ca55;
+  box-shadow: 0px 0px 30px -15px #9C240A;
+}
+
+mat-toolbar {
+  background-color: #9C240A;
+  font-family: 'KeepCalm', sans-serif;
+  color: white;
+}
+
+.property-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  justify-items: center;
+  padding: 120px 50px;
+}
+
+.example-card {
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-width: 2px;
+  border-radius: 15px;
+  border-color: #9C240A;
+  border-style: double;
+  height: 480px;
+}
+
+.lineas{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
+.icon-color{
+  color: #9C240A;
+  height: 20px;
+}
+
+.botones-menu {
+  color: #9C240A;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.cardTitulo{
+  color: #9C240A;
+  font-size: 25px;
+  font-family: 'KeepCalm', sans-serif;
+}
+
+.cardSubtitle{
+  padding-bottom: 5px;
+  font-family: 'KeepCalm', sans-serif;
+  color: rgb(121, 119, 119);
+}
+
+.description{
+  font-family: 'Louis', sans-serif;
+  font-size: 20px;
+}
+
+
+#titulo{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.logo{
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(125deg) brightness(102%) contrast(102%);
+}
+
+a{
+  text-decoration:none;
+  color: white;
+}
+
+.imgBox{
+  max-width: 350px;
+}
+
+.barImage{
+  width: max-content;
+}
+
+.image-container {
+  width: 90%;
+  height: 200px;
+  background-color: #f2f2f2;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: #9C240A;
+  border-style: double;
+}
+
+.image-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}

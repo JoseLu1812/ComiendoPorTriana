@@ -1,6 +1,7 @@
 package com.salesianos.triana.ComiendoPorTriana.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.salesianos.triana.ComiendoPorTriana.bar.model.dto.BarDto;
 import com.salesianos.triana.ComiendoPorTriana.comment.Comment;
 import com.salesianos.triana.ComiendoPorTriana.bar.model.Bar;
 import com.salesianos.triana.ComiendoPorTriana.user.model.User;
@@ -26,8 +27,8 @@ public class JwtUserResponse extends UserResponse {
         fullName = userResponse.getFullName();
         email = userResponse.getEmail();
         List<Bar> favList = userResponse.getFavList();
-        //List<Comment> comments = userResponse.getComments();
         createdAt = userResponse.getCreatedAt();
+        roles = userResponse.getRoles();
     }
 
     public static JwtUserResponse of (User user, String token) {

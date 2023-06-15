@@ -1,7 +1,9 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:comiendoportriana/config/locator.dart';
 import 'package:comiendoportriana/models/bar_list.dart';
+import 'package:comiendoportriana/models/models.dart';
 import 'package:comiendoportriana/services/bar_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -11,7 +13,6 @@ part 'bar_event.dart';
 part 'bar_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
-const _postLimit = 8;
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
@@ -38,26 +39,24 @@ class BarBloc extends Bloc<BarEvent, BarState> {
     if (state.hasReachedMax) return;
     try {
       if (state.status == BarStatus.initial) {
-        final bares = await _barService.getListaBares(0);
+        final bares = await _barService.getListaBares();
         return emit(
           state.copyWith(
             status: BarStatus.success,
-            currentPage: 0,
-            bar: bares.content,
-            hasReachedMax: bares.number! + 1 >= bares.totalElements!,
+            bar: bares,
+            hasReachedMax: false,
           ),
         );
       }
-      final bares = await _barService.getListaBares(state.currentPage +1);
-      emit(
-        state.copyWith(
-          status: BarStatus.success,
-          bar: List.of(state.bar)
-                  ..addAll(bares.content!),
-          hasReachedMax: bares.number! +1 >= bares.totalPages!,
-          currentPage: state.currentPage + 1
-        ),
-      );
+      final bares = await _barService.getListaBares(state.currentPage + 1);
+      bares.isEmpty
+          ? emit(state.copyWith(hasReachedMax: true))
+          : emit(
+              state.copyWith(
+                  status: BarStatus.success,
+                  bar: List.of(state.bar!)..addAll(bares),
+                  hasReachedMax: false),
+            );
     } catch (_) {
       emit(state.copyWith(status: BarStatus.failure));
     }

@@ -1,0 +1,11 @@
+
+<body>
+  <div class="login">
+    <form class="custom-form" method="post">
+      <img src="../../../assets/images/logo-login.png" alt="Logo App" class="logo">
+      <input type="text" [(ngModel)]="username" name="username" placeholder="Usuario" required="required" width="50px"/>
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required="required">
+      <button type="submit" [routerLink]="['/restaurantes']" (click)="onSubmit()">Log in</button>
+    </form>
+  </div>
+</body>
